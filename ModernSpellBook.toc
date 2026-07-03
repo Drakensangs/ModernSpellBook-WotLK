@@ -2,7 +2,7 @@
 ## Title: Modern Spellbook
 ## Notes: Changes the spellbook to a more modern look inspired by the retail version.
 ## Author: Original addon: vegeta1k95; WotLK version: Drakensangs
-## Version: 3.0
+## Version: 3.01
 ## DefaultState: enabled
 
 ## SavedVariablesPerCharacter: ModernSpellBook_DB

@@ -51,7 +51,7 @@ if not SOUNDKIT then
 end
 local soundkitDefaults = {
 	IG_MAINMENU_OPTION_CHECKBOX_ON = "igMainMenuOptionCheckBoxOn",
-	IG_ABILITY_PAGE_TURN = "igAbilityPageTurn",
+	IG_ABILITY_PAGE_TURN = "igAbiliityPageTurn",
 	IG_SPELLBOOK_OPEN = "igSpellBookOpen",
 	IG_SPELLBOOK_CLOSE = "igSpellBookClose",
 }

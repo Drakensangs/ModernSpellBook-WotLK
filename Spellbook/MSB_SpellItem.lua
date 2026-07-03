@@ -326,6 +326,15 @@ class "CSpellItem"
 		local frame = self.frame
 		local cooldown = self.spellIcon.cooldown
 
+		-- Pre-mark this cooldown frame as valid for YarkoCooldowns.
+		-- YarkoCooldowns hooks CooldownFrame_SetTimer and on the very
+		-- first call it checks self:GetParent():GetWidth() >= 28 to
+		-- decide whether to track the frame. If that check fires before
+		-- WoW's layout engine has finalized dimensions, GetWidth() may
+		-- return 0 and permanently blacklist the frame (self.mark = 0,
+		-- which causes an early return on every future call). Setting
+		-- mark = 1 here bypasses that check entirely for our frames,
+		-- which are legitimate cooldown display targets.
 		if (cooldown) then
 			cooldown.mark = 1
 		end

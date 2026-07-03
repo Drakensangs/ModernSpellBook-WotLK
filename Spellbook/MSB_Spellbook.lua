@@ -567,9 +567,17 @@ class "CSpellBook"
 		local scrollDebounceTimer = 0
 		self.frame:EnableMouseWheel(true)
 		self.frame:SetScript("OnMouseWheel", function()
+			local delta = arg1
+			if (IsControlKeyDown()) then
+				local currentScale = self.frame:GetScale()
+				local newScale = math.max(0.75, math.min(1.5, currentScale + delta * 0.05))
+				self.frame:SetScale(newScale)
+				SpellBookCloseButton:SetScale(newScale)
+				ModernSpellBook_DB.windowScale = newScale
+				return
+			end
 			if (GetTime() - scrollDebounceTimer < 0.2) then return end
 			scrollDebounceTimer = GetTime()
-			local delta = arg1
 			if (delta > 0) then
 				self.frame.previousPage:Click()
 			else
