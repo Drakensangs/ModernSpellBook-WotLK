@@ -7,7 +7,8 @@ vegeta1k95's [**ModernSpellBook**](https://github.com/vegeta1k95/ModernSpellBook
  - Paginated upcoming spells frame to avoid them from clipping into spell school titles.
  - Profession tab is on its own page now.
  - All profession passives, spells and specializations are listed under the profession tab.
- - Spellbook can be scaled using ctrl + mousewheel.
+ - Button to resize the spellbook added on the lower right.
+ - Option to lock the position and scale of the spellbook.
  - [**Clique**](https://warperia.com/addon-wotlk/clique/) support.
  - [**Cooldowns**](https://warperia.com/addon-wotlk/cooldowns/) support.
 
