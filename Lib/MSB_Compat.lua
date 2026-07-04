@@ -124,6 +124,18 @@ function MSB_PickupSpellBookItem(slot, bookType)
 	end
 end
 
+function MSB_StripLearnPromptFromTooltip()
+	for i = 2, GameTooltip:NumLines() do
+		local fs = _G["GameTooltipTextLeft" .. i]
+		if (fs) then
+			local text = fs:GetText()
+			if (text and string.find(string.lower(text), "learn")) then
+				fs:SetText("")
+			end
+		end
+	end
+end
+
 -- GetTalentLink is not available on 3.3.5a; falls back to a non-clickable,
 -- but still visually consistent, bracketed talent name.
 function MSB_GetTalentLink(tab, index)

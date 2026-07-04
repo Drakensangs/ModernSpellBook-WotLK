@@ -97,6 +97,7 @@ class "CSpellBook"
 		if (ModernSpellBook_DB.rememberPage == nil) then ModernSpellBook_DB.rememberPage = true end
 		if (ModernSpellBook_DB.showUnlearned == nil) then ModernSpellBook_DB.showUnlearned = true end
 		if (ModernSpellBook_DB.showUpcoming == nil) then ModernSpellBook_DB.showUpcoming = true end
+		if (ModernSpellBook_DB.lockPositionAndScale == nil) then ModernSpellBook_DB.lockPositionAndScale = false end
 		if (ModernSpellBook_DB.showContinuationHeaders == nil) then ModernSpellBook_DB.showContinuationHeaders = true end
 		if (not ModernSpellBook_DB.fontSize) then ModernSpellBook_DB.fontSize = 11.5 end
 		if (not ModernSpellBook_DB.highlights) then
@@ -124,6 +125,7 @@ class "CSpellBook"
 		)
 
 		self:SetShape(ModernSpellBook_DB.isMinimized)
+		self:UpdateLockVisuals()
 		self:DisableVanillaSpellBook()
 		self:ForceLoad()
 
@@ -242,6 +244,18 @@ class "CSpellBook"
 		end)
 	end;
 
+	UpdateLockVisuals = function(self)
+		local locked = ModernSpellBook_DB.lockPositionAndScale
+		self.frame:SetMovable(not locked)
+		if (self.frame.resizeHandle) then
+			if (locked) then
+				self.frame.resizeHandle:Hide()
+			else
+				self.frame.resizeHandle:Show()
+			end
+		end
+	end;
+
 	AddSearchBar = function(self)
 		self.frame.searchBar = CSearchBar(
 			self.frame,
@@ -256,10 +270,12 @@ class "CSpellBook"
 		self.frame:SetMovable(true)
 		self.frame:RegisterForDrag("LeftButton")
 		self.frame:SetScript("OnDragStart", function()
+			if (ModernSpellBook_DB.lockPositionAndScale) then return end
 			this:StartMoving()
 		end)
 		self.frame:SetScript("OnDragStop", function()
 			this:StopMovingOrSizing()
+			if (ModernSpellBook_DB.lockPositionAndScale) then return end
 			-- Save position
 			local point, _, relPoint, x, y = this:GetPoint()
 			ModernSpellBook_DB.position = { point = point, relPoint = relPoint, x = x, y = y }
@@ -283,11 +299,34 @@ class "CSpellBook"
 
 		-- Resize handle (bottom-right corner, adjusts scale via drag)
 		local resizeHandle = CreateFrame("Button", nil, self.frame)
-		resizeHandle:SetWidth(16)
-		resizeHandle:SetHeight(16)
-		resizeHandle:SetPoint("BOTTOMRIGHT", self.frame, "BOTTOMRIGHT", -4, 4)
+		resizeHandle:SetWidth(20)
+		resizeHandle:SetHeight(20)
+		resizeHandle:SetPoint("BOTTOMRIGHT", self.frame, "BOTTOMRIGHT", -6, 6)
 		resizeHandle:SetFrameLevel(self.frame:GetFrameLevel() + 10)
+
+		resizeHandle:SetNormalTexture("Interface\\AddOns\\ModernSpellBook\\Assets\\Spellbook\\resize-button")
+		resizeHandle:SetHighlightTexture("Interface\\AddOns\\ModernSpellBook\\Assets\\Spellbook\\resize-button")
+		resizeHandle:GetHighlightTexture():SetBlendMode("ADD")
+		resizeHandle:SetPushedTexture("Interface\\AddOns\\ModernSpellBook\\Assets\\Spellbook\\resize-button")
+		resizeHandle:GetPushedTexture():SetVertexColor(0.7, 0.7, 0.7)
+
+		resizeHandle:SetScript("OnEnter", function()
+			GameTooltip:SetOwner(resizeHandle, "ANCHOR_TOPLEFT")
+			if (ModernSpellBook_DB.lockPositionAndScale) then
+				GameTooltip:SetText("Position & scale locked")
+			else
+				GameTooltip:SetText("Drag to resize")
+			end
+			GameTooltip:Show()
+		end)
+		resizeHandle:SetScript("OnLeave", function()
+			GameTooltip:Hide()
+		end)
+
+		self.frame.resizeHandle = resizeHandle
+
 		resizeHandle:SetScript("OnMouseDown", function()
+			if (ModernSpellBook_DB.lockPositionAndScale) then return end
 			local startX, startY = GetCursorPosition()
 			local startScale = self.frame:GetScale()
 			-- Capture top-left in screen coords so we can pin it during resize
@@ -300,7 +339,7 @@ class "CSpellBook"
 				local dx = curX - startX
 				local dy = startY - curY
 				local delta = (dx + dy) / 2
-				local newScale = math.max(0.5, math.min(1.2, startScale + delta / 500))
+				local newScale = math.max(0.5, math.min(1.5, startScale + delta / 500))
 				self.frame:SetScale(newScale)
 				SpellBookCloseButton:SetScale(newScale)
 				-- Re-anchor top-left to same screen position
@@ -567,17 +606,9 @@ class "CSpellBook"
 		local scrollDebounceTimer = 0
 		self.frame:EnableMouseWheel(true)
 		self.frame:SetScript("OnMouseWheel", function()
-			local delta = arg1
-			if (IsControlKeyDown()) then
-				local currentScale = self.frame:GetScale()
-				local newScale = math.max(0.75, math.min(1.5, currentScale + delta * 0.05))
-				self.frame:SetScale(newScale)
-				SpellBookCloseButton:SetScale(newScale)
-				ModernSpellBook_DB.windowScale = newScale
-				return
-			end
 			if (GetTime() - scrollDebounceTimer < 0.2) then return end
 			scrollDebounceTimer = GetTime()
+			local delta = arg1
 			if (delta > 0) then
 				self.frame.previousPage:Click()
 			else
@@ -970,7 +1001,7 @@ class "CSpellBook"
 			local wasPreviousSelectionDifferent = self.frame.selectedTab ~= clickedTab.tab_number
 			if (not wasPreviousSelectionDifferent) then return end
 
-			PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON)
+			PlaySound("igAbiliityPageTurn")
 			self.frame.selectedTab = clickedTab.tab_number
 			ModernSpellBook_DB.lastTab = clickedTab.tab_number
 

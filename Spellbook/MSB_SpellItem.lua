@@ -148,10 +148,8 @@ class "CSpellItem"
 			end
 
 			if (IsShiftKeyDown()) then
-				if (spellInfo.isPassive) then return end
-
 				-- Macro edit box: insert plain spell name for /cast
-				if (MacroFrameText and MacroFrameText:IsVisible()) then
+				if (not spellInfo.isPassive and MacroFrameText and MacroFrameText:IsVisible()) then
 					local macroText
 					if (spellInfo.spellRank and spellInfo.spellRank ~= "") then
 						macroText = spellInfo.spellName .. "(" .. spellInfo.spellRank .. ")"
@@ -166,7 +164,12 @@ class "CSpellItem"
 					-- currently has focus, and opens one if none does,
 					-- exactly like Blizzard's own SpellButton_OnModifiedClick
 					-- does.
-					local link = GetSpellLink(spellInfo.spellID, spellInfo.bookType)
+					local link
+					if (spellInfo.isTalent and spellInfo.talentGrid) then
+						link = MSB_GetTalentLink(spellInfo.talentGrid[1], spellInfo.talentGrid[2])
+					elseif (spellInfo.spellID) then
+						link = GetSpellLink(spellInfo.spellID, spellInfo.bookType)
+					end
 					if (link) then
 						ChatEdit_InsertLink(link)
 					end
@@ -275,6 +278,9 @@ class "CSpellItem"
 						GameTooltip:SetTalent(spellInfo.talentGrid[1], spellInfo.talentGrid[2])
 						shownFullTooltip = true
 					end)
+					if (shownFullTooltip) then
+						MSB_StripLearnPromptFromTooltip()
+					end
 				end
 				if (not shownFullTooltip) then
 					local rankText = spellInfo.spellRank or ""
@@ -309,6 +315,7 @@ class "CSpellItem"
 			else
 				if (GameTooltip.SetTalent) then
 					GameTooltip:SetTalent(spellInfo.talentGrid[1], spellInfo.talentGrid[2])
+					MSB_StripLearnPromptFromTooltip()
 				else
 					local talentLink = MSB_GetTalentLink(spellInfo.talentGrid[1], spellInfo.talentGrid[2])
 					if (talentLink) then

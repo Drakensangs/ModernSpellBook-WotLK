@@ -1,6 +1,5 @@
 --[[
 	Slash commands for ModernSpellBook.
-	/msb          - Toggle between modern and vanilla spellbook
 	/msb reset    - Reset all settings to defaults
 	/msb rescan   - Clear trainer cache (rescan on next trainer visit)
 --]]
@@ -31,56 +30,6 @@ class "CSlashCommands"
 		else
 			self:PrintHelp()
 		end
-	end;
-
-	-- ======================== TOGGLE =============================
-
-	Toggle = function(self)
-		-- Close spellbook first for clean state
-		if (SpellBookFrame:IsVisible()) then
-			ToggleSpellBook(BOOKTYPE_SPELL)
-		end
-
-		if (self.enabled) then
-			self:DisableModern()
-		else
-			self:EnableModern()
-		end
-	end;
-
-	DisableModern = function(self)
-		self.enabled = false
-
-		-- Restore vanilla SpellBookFrame OnShow behavior
-		SpellBookFrame:SetScript("OnShow", MSB_OriginalSpellBookFrameOnShow)
-
-		-- Re-show vanilla children
-		for i, region in ipairs( { SpellBookFrame:GetRegions() } ) do
-			region:Show()
-		end
-		for i, child in ipairs({SpellBookFrame:GetChildren()}) do
-			local childName = child:GetName()
-			if (childName ~= "ModernSpellBookFrame") then
-				child:Show()
-			end
-		end
-
-		-- Hide our frame
-		ModernSpellBookFrame:Hide()
-
-		DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00ModernSpellBook:|r Disabled. Using vanilla spellbook.")
-	end;
-
-	EnableModern = function(self)
-		self.enabled = true
-
-		-- Replace vanilla SpellBookFrame OnShow
-		SpellBookFrame:SetScript("OnShow", MSB_ShowModernSpellBook)
-
-		-- Hide vanilla children
-		SpellBook:DisableVanillaSpellBook()
-
-		DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00ModernSpellBook:|r Enabled.")
 	end;
 
 	-- ======================= COMMANDS =============================
@@ -133,7 +82,6 @@ class "CSlashCommands"
 
 	PrintHelp = function(self)
 		DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00ModernSpellBook|r commands:")
-		DEFAULT_CHAT_FRAME:AddMessage("  /msb - Toggle between modern and vanilla spellbook")
 		DEFAULT_CHAT_FRAME:AddMessage("  /msb reset - Reset settings to defaults")
 		DEFAULT_CHAT_FRAME:AddMessage("  /msb rescan - Clear trainer cache")
 	end;

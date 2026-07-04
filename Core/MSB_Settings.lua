@@ -50,6 +50,7 @@ class "CSettingsMenu"
 		local dropdown = self.dropdown
 		self.button:SetScript("OnClick", function()
 			if (InCombatLockdown()) then return end
+			PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON)
 			ToggleDropDownMenu(1, nil, dropdown, settingsMenu.button, 0, 0)
 		end)
 
@@ -128,6 +129,17 @@ class "CSettingsMenu"
 			info.func = function()
 				ModernSpellBook_DB.showContinuationHeaders = not ModernSpellBook_DB.showContinuationHeaders
 				onChanged()
+			end
+			UIDropDownMenu_AddButton(info, level)
+
+			-- Lock position & scale
+			info = {}
+			info.text = "Lock position & scale"
+			info.checked = ModernSpellBook_DB.lockPositionAndScale
+			info.keepShownOnClick = 1
+			info.func = function()
+				ModernSpellBook_DB.lockPositionAndScale = not ModernSpellBook_DB.lockPositionAndScale
+				SpellBook:UpdateLockVisuals()
 			end
 			UIDropDownMenu_AddButton(info, level)
 
