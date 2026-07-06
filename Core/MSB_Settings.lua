@@ -48,6 +48,22 @@ class "CSettingsMenu"
 		self.dropdown.initialize = initFunc
 
 		local dropdown = self.dropdown
+		hooksecurefunc("UIDropDownMenu_InitializeHelper", function()
+			local list2 = _G["DropDownList2"]
+			if not list2 or list2.msbSubmenuHooked then return end
+			list2:HookScript("OnShow", function(self)
+				C_Timer.After(0, function()
+					if UIDROPDOWNMENU_OPEN_MENU ~= dropdown then return end
+					local point, anchor, relPoint, x, y = self:GetPoint(1)
+					if point and anchor then
+						self:ClearAllPoints()
+						self:SetPoint(point, anchor, relPoint, x + 10, y)
+					end
+				end)
+			end)
+			list2.msbSubmenuHooked = true
+		end)
+
 		self.button:SetScript("OnClick", function()
 			if (InCombatLockdown()) then return end
 			PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON)

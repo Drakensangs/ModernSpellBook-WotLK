@@ -42,7 +42,7 @@ class "CSpellItem"
 		if (self.nameText.SetWordWrap) then self.nameText:SetWordWrap(true) end
 		self.nameText:SetWidth(98)
 		self.nameText:SetJustifyH("LEFT")
-		self.nameText:SetFont("Fonts\\FRIZQT__.TTF", ModernSpellBook_DB and ModernSpellBook_DB.fontSize or 11.5)
+		self.nameText:SetFont(MSB_GetFont(), ModernSpellBook_DB and ModernSpellBook_DB.fontSize or 11.5)
 		if (self.nameText.SetJustifyV) then self.nameText:SetJustifyV("TOP") end
 
 		-- Trail background behind text
@@ -56,7 +56,7 @@ class "CSpellItem"
 		-- Rank / subtitle text
 		self.rankText = self.textGroup:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 		self.rankText:SetPoint("TOPLEFT", self.nameText, "BOTTOMLEFT", 0, -1)
-		self.rankText:SetFont("Fonts\\FRIZQT__.TTF", 9.5)
+		self.rankText:SetFont(MSB_GetFont(), 9.5)
 		self.rankText:SetJustifyH("LEFT")
 		if (self.rankText.SetWordWrap) then self.rankText:SetWordWrap(true) end
 		self.rankText:SetWidth(80)
@@ -196,7 +196,7 @@ class "CSpellItem"
 	end;
 
 	SetTextContent = function(self, spellInfo)
-		self.nameText:SetFont("Fonts\\FRIZQT__.TTF", ModernSpellBook_DB and ModernSpellBook_DB.fontSize or 11.5)
+		self.nameText:SetFont(MSB_GetFont(), ModernSpellBook_DB and ModernSpellBook_DB.fontSize or 11.5)
 		self.spellIcon.icon:SetTexture(spellInfo.spellIcon)
 		self.nameText:SetText(spellInfo.spellName)
 		if (spellInfo.isUnlearned and spellInfo.levelReq and spellInfo.levelReq > 0) then

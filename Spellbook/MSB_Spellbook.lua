@@ -418,13 +418,13 @@ class "CSpellBook"
 		self.frame.trainerHint = self.frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 		self.frame.trainerHint:SetPoint("BOTTOM", self.frame, "BOTTOM", 0, 60)
 		self.frame.trainerHint:SetText("Visit a class trainer in a major city to fetch the FULL list of available spells.")
-		self.frame.trainerHint:SetFont("Fonts\\FRIZQT__.TTF", 10)
+		self.frame.trainerHint:SetFont(MSB_GetFont(), 10)
 		self.frame.trainerHint:SetTextColor(1, 1, 1)
 		self.frame.trainerHint:Hide()
 
 		self.frame.spellCounter = self.frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 		self.frame.spellCounter:SetPoint("BOTTOMLEFT", self.frame, "BOTTOMLEFT", 60, 60)
-		self.frame.spellCounter:SetFont("Fonts\\FRIZQT__.TTF", 10)
+		self.frame.spellCounter:SetFont(MSB_GetFont(), 10)
 		self.frame.spellCounter:SetTextColor(1, 1, 1)
 
 		local UPCOMING_ICON_SIZE = 24
@@ -438,7 +438,7 @@ class "CSpellBook"
 		self.frame.upcomingFrame:SetPoint("TOPRIGHT", self.frame.backgroundLeft, "TOPRIGHT", -100, -30)
 
 		self.frame.upcomingLabel = self.frame.upcomingFrame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-		self.frame.upcomingLabel:SetFont("Fonts\\FRIZQT__.TTF", 10)
+		self.frame.upcomingLabel:SetFont(MSB_GetFont(), 10)
 		self.frame.upcomingLabel:SetTextColor(1, 1, 1)
 		self.frame.upcomingLabel:SetPoint("BOTTOM", self.frame.upcomingFrame, "TOP", 0, 6)
 
@@ -526,7 +526,7 @@ class "CSpellBook"
 		self.frame.ShowPassiveSpellsCheckBox.text = self.frame.ShowPassiveSpellsCheckBox:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 		self.frame.ShowPassiveSpellsCheckBox.text:SetPoint("TOPLEFT", self.frame.ShowPassiveSpellsCheckBox, "TOPLEFT", 20, -3.5)
 		self.frame.ShowPassiveSpellsCheckBox.text:SetText(self.frame.ClientLocale.ShowPassive)
-		self.frame.ShowPassiveSpellsCheckBox.text:SetFont("Fonts\\FRIZQT__.TTF", 10)
+		self.frame.ShowPassiveSpellsCheckBox.text:SetFont(MSB_GetFont(), 10)
 		local passiveTextWidth = 80
 		if (self.frame.ShowPassiveSpellsCheckBox.text.GetStringWidth) then
 			passiveTextWidth = self.frame.ShowPassiveSpellsCheckBox.text:GetStringWidth()
@@ -549,7 +549,7 @@ class "CSpellBook"
 		ShowAllSpellRanksCheckboxText = ShowAllSpellRanksCheckbox:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 		ShowAllSpellRanksCheckboxText:SetPoint("TOPLEFT", ShowAllSpellRanksCheckbox, "TOPLEFT", 20, -3.5)
 		ShowAllSpellRanksCheckboxText:SetText("All ranks")
-		ShowAllSpellRanksCheckboxText:SetFont("Fonts\\FRIZQT__.TTF", 10)
+		ShowAllSpellRanksCheckboxText:SetFont(MSB_GetFont(), 10)
 
 		local labelWidth = 50
 		if (ShowAllSpellRanksCheckboxText.GetStringWidth) then

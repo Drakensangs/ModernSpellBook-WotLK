@@ -35,7 +35,7 @@ class "CCategoryItem"
 		self.text:SetPoint("LEFT", self.specIconFrame, "RIGHT", 5, 0)
 		self.text:SetTextColor(0, 0, 0)
 		self.text:SetShadowOffset(0, 0)
-		self.text:SetFont("Fonts\\FRIZQT__.TTF", 17)
+		self.text:SetFont(MSB_GetFont(), 17)
 
 		self.lightBorder = self.frame:CreateTexture(nil, "OVERLAY")
 		self.lightBorder:SetWidth(256)

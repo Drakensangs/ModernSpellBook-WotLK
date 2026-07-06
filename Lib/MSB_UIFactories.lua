@@ -38,7 +38,7 @@ function MSB_CreateBadge(parent, text, bgColor, borderColor, frameLevel)
     local badgeText = badge:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     badgeText:SetPoint("CENTER", badge, "CENTER", 0, 1)
     badgeText:SetText(text)
-    badgeText:SetFont("Fonts\\FRIZQT__.TTF", 8)
+    badgeText:SetFont(MSB_GetFont(), 8)
     badgeText:SetTextColor(1, 1, 1)
 
     return badge, badgeText
