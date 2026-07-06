@@ -20,10 +20,10 @@ WotLK 3.3.5a version: Drakensangs
 
 ## 📸 **Screenshots**
 
-<img width="1656" height="829" alt="msb" src="https://github.com/user-attachments/assets/439baafc-d132-4f8c-8322-00a9d0966c38" />
-<img width="1544" height="832" alt="msb1" src="https://github.com/user-attachments/assets/6ae75304-1b2e-4e5a-a8bf-f5e2ca92a023" />
-<img width="1556" height="835" alt="msb6" src="https://github.com/user-attachments/assets/6dd351ca-094a-46b7-8b78-6052034c2b73" />
-<img width="1548" height="838" alt="msb5" src="https://github.com/user-attachments/assets/9825e78e-38e4-427d-9015-51cfa85ae521" />
-<img width="1544" height="831" alt="msb4" src="https://github.com/user-attachments/assets/af19a8ed-fe20-44d5-a445-87f737e39612" />
-<img width="1545" height="829" alt="msb3" src="https://github.com/user-attachments/assets/f1298b54-b721-4969-9973-922ef2f4ed13" />
-<img width="2165" height="849" alt="msb2" src="https://github.com/user-attachments/assets/7d5c8279-df61-4a1b-a23f-7a6bc10df183" />
+<img width="1678" height="849" alt="msb1" src="https://github.com/user-attachments/assets/dfe0c868-36f3-4932-9d75-ed286ac7c091" />
+<img width="1529" height="823" alt="msb2" src="https://github.com/user-attachments/assets/61a7a636-257d-40ef-8886-4d5f0295484d" />
+<img width="1526" height="824" alt="msb3" src="https://github.com/user-attachments/assets/8c0c8c72-71da-4822-a14c-6f910808954e" />
+<img width="1525" height="821" alt="msb4" src="https://github.com/user-attachments/assets/e4f1bae3-0152-430d-a423-affb27612172" />
+<img width="1534" height="820" alt="msb5" src="https://github.com/user-attachments/assets/f33f1cee-508f-496c-9844-e5003244ca0b" />
+<img width="1525" height="824" alt="msb6" src="https://github.com/user-attachments/assets/8a305867-ce6e-4246-9b5e-69652acc54f6" />
+<img width="2069" height="818" alt="msb7" src="https://github.com/user-attachments/assets/975f7b14-9fa7-48f5-bc14-b320b8f6bfde" />
