@@ -176,6 +176,7 @@ class "CSpellBook"
 			self:SetShape(ModernSpellBook_DB.isMinimized)
 			self:PositionAllTabs()
 			self:SetupCliqueIntegration()
+			self:SetupWhatsTrainingIntegration()
 
 			if (next(ModernSpellBook_DB.spells) == nil) then
 				SpellDataService:SetupInitiallyKnownSpells()
@@ -1070,29 +1071,15 @@ class "CSpellBook"
 	-- =================== CLIQUE INTEGRATION ======================
 
 	SetupCliqueIntegration = function(self)
-		if (self.frame.cliqueIntegrated) then return end
-		if (not Clique or not Clique.Toggle) then return end
-
-		self.frame.cliqueIntegrated = true
-
-		if (not CliqueFrame) then
-			Clique:Toggle()  -- runs CreateOptionsFrame(), shows CliqueFrame
-			if (CliqueFrame) then
-				CliqueFrame:SetParent(UIParent)
-				CliqueFrame:Hide()  -- leave it closed; player opens it via the tab
-			end
-		else
-			CliqueFrame:SetParent(UIParent)
+		if (MSB_SetupCliqueIntegration) then
+			MSB_SetupCliqueIntegration(self)
 		end
+	end;
 
-		local tabNumber = table.getn(self.frame.Tabgroups) + 1
-		local tab = CTab(self.frame, "Clique", tabNumber, function()
-			Clique:Toggle()
-		end)
-		table.insert(self.frame.Tabgroups, tab)
-		self.frame.cliqueTab = tab
-
-		self:PositionAllTabs()
+	SetupWhatsTrainingIntegration = function(self)
+		if (MSB_SetupWhatsTrainingIntegration) then
+			MSB_SetupWhatsTrainingIntegration(self)
+		end
 	end;
 }
 
@@ -1128,6 +1115,21 @@ end
 
 -- This is the actual fix: bind directly to the frame, not the global name.
 SpellBookFrame:SetScript("OnShow", MSB_ShowModernSpellBook)
+
+-- Close MSB when Character or Talents frame opens.
+local function MSB_HideOnOpen()
+	if (ModernSpellBookFrame and ModernSpellBookFrame:IsShown()) then
+		HideUIPanel(SpellBookFrame)
+	end
+end
+if (CharacterFrame) then
+	CharacterFrame:HookScript("OnShow", MSB_HideOnOpen)
+end
+hooksecurefunc("ShowUIPanel", function(frame)
+	if (frame == PlayerTalentFrame) then
+		MSB_HideOnOpen()
+	end
+end)
 
 -- ============================================================
 -- ShowAllSpellRanksCheckBox leak fix

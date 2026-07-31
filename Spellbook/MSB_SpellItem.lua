@@ -89,9 +89,17 @@ class "CSpellItem"
 		local frame = self.frame
 		local iconTex = self.spellIcon.icon
 
-		if (not spellInfo.isUnlearned and not spellInfo.isPassive and spellInfo.castName) then
-			frame:SetAttribute("type1", "spell")
-			frame:SetAttribute("spell1", spellInfo.castName)
+		if (not spellInfo.isUnlearned and not spellInfo.isPassive) then
+			if (spellInfo.isPetSpell) then
+				frame:SetAttribute("type1", "spell")
+				frame:SetAttribute("spell1", spellInfo.spellName)
+			elseif (spellInfo.castName) then
+				frame:SetAttribute("type1", "spell")
+				frame:SetAttribute("spell1", spellInfo.castName)
+			else
+				frame:SetAttribute("type1", nil)
+				frame:SetAttribute("spell1", nil)
+			end
 		else
 			frame:SetAttribute("type1", nil)
 			frame:SetAttribute("spell1", nil)
@@ -179,19 +187,7 @@ class "CSpellItem"
 
 			if (spellInfo.isUnlearned) then return end
 			if (spellInfo.isPassive) then return end
-			if (spellInfo.isPetSpell) then
-				if (spellInfo.castName) then
-					C_Timer.After(0.2, function()
-						local name, texture = GetPetActionInfo(spellInfo.castName)
-						if (texture) then
-							iconTex:SetTexture(texture)
-						end
-					end)
-				else
-					UIErrorsFrame:AddMessage("ModernSpellBook: Warning - Pet spell ".. spellInfo.spellName.. " cannot be cast outside the pet action bar. Please drag the spell there.", 1.0, 0.1, 0.1, 1.0)
-					PlaySound("igQuestFailed")
-				end
-			end
+			if (spellInfo.isPetSpell) then return end
 		end)
 	end;
 
@@ -348,7 +344,12 @@ class "CSpellItem"
 			frame:SetScript("OnUpdate", function()
 				if (not frame:IsVisible()) then return end
 				-- Query by spell name to avoid CTD from stale slot indices
-				local ok, start, duration, enable = pcall(GetSpellCooldown, spellInfo.castName or spellInfo.spellName)
+				local ok, start, duration, enable
+				if (spellInfo.isPetSpell) then
+					ok, start, duration, enable = pcall(GetSpellCooldown, spellInfo.spellID, BOOKTYPE_PET)
+				else
+					ok, start, duration, enable = pcall(GetSpellCooldown, spellInfo.castName or spellInfo.spellName)
+				end
 				if (ok and start and cooldown) then
 					local cdFunc = CooldownFrame_SetTimer or CooldownFrame_Set
 					if (cdFunc) then cdFunc(cooldown, start, duration, enable) end
