@@ -11,6 +11,7 @@ vegeta1k95's [**ModernSpellBook**](https://github.com/vegeta1k95/ModernSpellBook
  - Option to lock the position and scale of the spellbook.
  - [**Clique**](https://warperia.com/addon-wotlk/clique/) support.
  - [**Cooldowns**](https://warperia.com/addon-wotlk/cooldowns/) support.
+ - [**WhatsTraining-WotLK**](https://warperia.com/addon-wotlk/whatstraining_wotlk/) & [**What's Training? Epoch**](https://warperia.com/addon-wotlk/whats-training-epoch/) support.
 
 ## 👨‍💻 **Authors**
 
