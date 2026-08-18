@@ -156,22 +156,8 @@ class "CSpellItem"
 			end
 
 			if (IsShiftKeyDown()) then
-				-- Macro edit box: insert plain spell name for /cast
-				if (not spellInfo.isPassive and MacroFrameText and MacroFrameText:IsVisible()) then
-					local macroText
-					if (spellInfo.spellRank and spellInfo.spellRank ~= "") then
-						macroText = spellInfo.spellName .. "(" .. spellInfo.spellRank .. ")"
-					else
-						macroText = spellInfo.spellName
-					end
-					MacroFrameText:Insert(macroText)
-				elseif (ChatEdit_InsertLink) then
-					-- ChatEdit_InsertLink (not a specific
-					-- ChatFrameNEditBox) is the correct, standard way to do
-					-- this - it inserts into whichever chat edit box
-					-- currently has focus, and opens one if none does,
-					-- exactly like Blizzard's own SpellButton_OnModifiedClick
-					-- does.
+				local editBox = GetCurrentKeyBoardFocus()
+				if (editBox and editBox ~= MacroFrameText) then
 					local link
 					if (spellInfo.isTalent and spellInfo.talentGrid) then
 						link = MSB_GetTalentLink(spellInfo.talentGrid[1], spellInfo.talentGrid[2])
@@ -180,6 +166,14 @@ class "CSpellItem"
 					end
 					if (link) then
 						ChatEdit_InsertLink(link)
+					end
+				else
+					if (not spellInfo.isPassive and MacroFrameText) then
+						if (spellInfo.spellRank and spellInfo.spellRank ~= "") then
+							MacroFrameText:Insert("/cast " .. spellInfo.spellName .. "(" .. spellInfo.spellRank .. ")")
+						else
+							MacroFrameText:Insert("/cast " .. spellInfo.spellName)
+						end
 					end
 				end
 				return
