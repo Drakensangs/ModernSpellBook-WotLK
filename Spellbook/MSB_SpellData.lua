@@ -274,10 +274,12 @@ class "CSpellDataService"
 			actionBarSpells[name] = i
 		end
 
+		local numPetSpells = HasPetSpells() or 0
+
 		local passiveSpells = {}
 		local petSpells = {}
 		petSpells[petName] = {}
-		for i = 1, NUM_PET_ACTION_SLOTS do
+		for i = 1, numPetSpells do
 			local spellName, spellSubName = MSB_GetSpellBookItemName(i, BOOKTYPE_PET)
 			if (not spellName) then break end
 
