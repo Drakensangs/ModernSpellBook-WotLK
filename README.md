@@ -34,6 +34,5 @@ WotLK 3.3.5a version: Drakensangs
 <img width="1530" height="833" alt="msb6" src="https://github.com/user-attachments/assets/18137dae-67cb-45c8-9dc4-98db14dd8e35" />
 <img width="2094" height="815" alt="msb7" src="https://github.com/user-attachments/assets/37bc5ecd-7d2b-4f73-8062-d5ca9ce8c5f9" />
 <img width="2279" height="817" alt="msb8" src="https://github.com/user-attachments/assets/92b24131-7d51-497d-bd7b-40a8de8a802a" />
-<img width="2281" height="825" alt="msb9" src="https://github.com/user-attachments/assets/891d685e-3591-46bc-8b3e-ff30df09b939" />
 <img width="864" height="828" alt="msb10" src="https://github.com/user-attachments/assets/803a74e4-f546-49a4-8c3e-6e6a34efa5a3" />
 <img width="860" height="834" alt="msb11" src="https://github.com/user-attachments/assets/3dee2558-b595-459c-8923-2c518ec503be" />
