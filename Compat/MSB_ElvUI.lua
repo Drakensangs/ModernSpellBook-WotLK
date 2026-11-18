@@ -1,6 +1,9 @@
 -- ElvUI support: uses ElvUI's font and skins the close button and
 -- dropdown menus so they match. Does nothing without ElvUI.
 
+-- English clients' font, in case STANDARD_TEXT_FONT is missing
+local DEFAULT_FONT = "Fonts\\FRIZQT__.TTF"
+
 function MSB_GetFont()
 	if ElvUI then
 		local ok, E = pcall(function() return unpack(ElvUI) end)
@@ -8,7 +11,9 @@ function MSB_GetFont()
 			return E.media.normFont
 		end
 	end
-	return "Fonts\\FRIZQT__.TTF"
+	-- The client's own font: FRIZQT__ has no Cyrillic, Korean or Chinese
+	-- letters, and those clients point STANDARD_TEXT_FONT at one that does
+	return STANDARD_TEXT_FONT or DEFAULT_FONT
 end
 
 local function GetElvUI()
@@ -94,7 +99,7 @@ local function ApplyElvUICompat()
 		if closeButton then MSB_SkinCloseButton(closeButton) end
 
 		local font = MSB_GetFont()
-		if font and font ~= "Fonts\\FRIZQT__.TTF" then
+		if font and font ~= (STANDARD_TEXT_FONT or DEFAULT_FONT) then
 			local msb = _G.ModernSpellBookFrame
 			if msb then
 				local function ApplyFont(fs, size)

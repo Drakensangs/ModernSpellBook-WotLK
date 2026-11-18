@@ -1,0 +1,75 @@
+-- French (frFR). Loaded after localization.lua; does nothing on other clients
+-- (3.3.5a loads every file in the TOC, so each translation checks the locale).
+
+if (GetLocale() ~= "frFR") then return end
+
+local L = MSB_L
+
+-- Settings menu
+L.SHOW_PASSIVES = "Afficher les passifs"
+L.REMEMBER_PAGE = "Mémoriser la page"
+L.SPELL_COUNTER = "Compteur de sorts"
+L.SHOW_TALENTS = "Afficher les talents"
+L.SHOW_UNLEARNED = "Afficher les non appris"
+L.SHOW_UPCOMING = "Afficher les prochains"
+L.CONTINUATION_HEADERS = "En-têtes sur les pages suivantes"
+L.LOCK_POSITION = "Verrouiller position et taille"
+L.CLASS_BOOKMARK = "Marque-page aux couleurs de la classe"
+L.HIGHLIGHT_UNPLACED = "Surligner les sorts absents des barres d'action"
+L.HIGHLIGHTS = "Mises en évidence"
+L.LEARNED_GLOW = "Lueur des sorts appris"
+L.LEARNED_BADGE = "Badge des sorts appris"
+L.AVAILABLE_GLOW = "Lueur des sorts disponibles"
+L.AVAILABLE_BADGE = "Badge des sorts disponibles"
+L.FONT_SIZE = "Taille de police"
+L.TEXT_COLOR = "Couleur du texte des sorts"
+L.TEXT_COLOR_LIGHT = "Clair"
+L.TEXT_COLOR_DARK = "Sombre"
+L.ICON_FRAME = "Cadre des icônes de sorts"
+L.ICON_FRAME_SPELLS = "Sorts"
+L.ICON_FRAME_OTHER = "Autres"
+L.ICON_FRAME_UNLEARNED = "Non appris"
+L.RESET_POSITION = "Réinitialiser position et taille"
+
+-- Book
+L.TAB_PET = "Familier"
+L.TAB_TRAINING = "Apprentissage"
+L.SEARCH_PLACEHOLDER = "Rechercher sorts, mots-clés"
+L.NO_RESULTS = "Aucun résultat. Essayez un autre terme de recherche.|nPar exemple : '%s, %s'"
+L.NO_PET_SPELLS = "Aucune technique de familier disponible."
+L.PAGE_NUMBER = "Page %d / %d"
+L.TRAINER_HINT_LONG = "Visitez un maître de classe en capitale pour la liste COMPLÈTE des sorts disponibles."
+L.TRAINER_HINT_SHORT = "Visitez un maître de classe pour TOUS les sorts."
+L.UPCOMING_SPELLS = "Nouveaux sorts au niveau %d :"
+L.COUNTER_LEARNED = "%d appris"
+L.COUNTER_LEARNED_OF = "%d/%d appris"
+L.COUNTER_LEARNED_UNKNOWN = "%d/? appris"
+L.BADGE_TRAIN = "Apprendre"
+L.HIDE_RANKS = "Masquer les rangs"
+L.SHOW_RANKS = "Afficher tous les rangs"
+L.POSITION_LOCKED = "Position et taille verrouillées"
+L.DRAG_TO_RESIZE = "Faites glisser pour redimensionner"
+L.TWO_PAGE_VIEW = "Vue sur deux pages"
+L.ONE_PAGE_VIEW = "Vue sur une page"
+
+-- Spell tooltips
+L.REQUIRES_TALENT = "Nécessite un point de talent."
+L.VISIT_TRAINER = "Rendez visite à un maître de classe pour l'apprendre."
+L.NOT_ON_BARS = "Absent de vos barres d'action"
+L.TRAINING_COST = "Coût d'apprentissage :"
+L.TRAINING_FREE = "Gratuit"
+L.TOTAL_COST = "Coût total : %s"
+L.COST = "Coût : %s"
+
+-- Chat messages
+L.DB_RESET = "Paramètres réinitialisés (version des données %s)."
+L.TRAINER_CAPTURED = "%d sorts récupérés auprès du maître."
+L.SETTINGS_RESET = "Paramètres par défaut rétablis."
+L.NO_TRAINER_DATA = "Aucune donnée de maître à effacer."
+L.TRAINER_DATA_CLEARED = "Données des maîtres effacées. Rendez visite à un maître pour les relire."
+L.COMBAT_NO_OPEN = "/msb ne peut pas ouvrir le grimoire en combat. Utilisez votre raccourci du grimoire."
+L.COMBAT_NO_RESET = "Impossible de réinitialiser les paramètres en combat."
+L.COMMANDS = "commandes :"
+L.CMD_TOGGLE = "Ouvrir ou fermer le grimoire"
+L.CMD_RESET = "Rétablir les paramètres par défaut"
+L.CMD_RESCAN = "Oublier les sorts des maîtres (relus à votre prochaine visite)"

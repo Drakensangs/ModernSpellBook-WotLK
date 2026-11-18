@@ -1,0 +1,75 @@
+-- Korean (koKR). Loaded after localization.lua; does nothing on other clients
+-- (3.3.5a loads every file in the TOC, so each translation checks the locale).
+
+if (GetLocale() ~= "koKR") then return end
+
+local L = MSB_L
+
+-- Settings menu
+L.SHOW_PASSIVES = "지속 효과 표시"
+L.REMEMBER_PAGE = "페이지 기억"
+L.SPELL_COUNTER = "주문 개수 표시"
+L.SHOW_TALENTS = "특성 표시"
+L.SHOW_UNLEARNED = "배우지 않은 주문 표시"
+L.SHOW_UPCOMING = "다음 레벨 주문 표시"
+L.CONTINUATION_HEADERS = "다음 페이지에 분류 제목 반복"
+L.LOCK_POSITION = "위치 및 크기 잠금"
+L.CLASS_BOOKMARK = "직업 색상 책갈피"
+L.HIGHLIGHT_UNPLACED = "행동 단축바에 없는 주문 강조"
+L.HIGHLIGHTS = "강조 효과"
+L.LEARNED_GLOW = "배운 주문 빛내기"
+L.LEARNED_BADGE = "배운 주문 표식"
+L.AVAILABLE_GLOW = "배울 수 있는 주문 빛내기"
+L.AVAILABLE_BADGE = "배울 수 있는 주문 표식"
+L.FONT_SIZE = "글꼴 크기"
+L.TEXT_COLOR = "주문 글자 색상"
+L.TEXT_COLOR_LIGHT = "밝게"
+L.TEXT_COLOR_DARK = "어둡게"
+L.ICON_FRAME = "주문 아이콘 테두리"
+L.ICON_FRAME_SPELLS = "주문"
+L.ICON_FRAME_OTHER = "기타"
+L.ICON_FRAME_UNLEARNED = "배우지 않은 주문"
+L.RESET_POSITION = "위치 및 크기 초기화"
+
+-- Book
+L.TAB_PET = "소환수"
+L.TAB_TRAINING = "수련"
+L.SEARCH_PLACEHOLDER = "능력, 키워드 검색"
+L.NO_RESULTS = "결과가 없습니다. 다른 검색어를 입력해 보세요.|n예: '%s, %s'"
+L.NO_PET_SPELLS = "사용할 수 있는 소환수 주문이 없습니다."
+L.PAGE_NUMBER = "%d / %d 페이지"
+L.TRAINER_HINT_LONG = "대도시의 직업 상급자를 방문하면 배울 수 있는 주문의 전체 목록을 가져옵니다."
+L.TRAINER_HINT_SHORT = "직업 상급자를 방문해 전체 주문 목록을 가져오세요."
+L.UPCOMING_SPELLS = "%d 레벨에 배우는 새 주문:"
+L.COUNTER_LEARNED = "%d개 배움"
+L.COUNTER_LEARNED_OF = "%d/%d개 배움"
+L.COUNTER_LEARNED_UNKNOWN = "%d/?개 배움"
+L.BADGE_TRAIN = "수련"
+L.HIDE_RANKS = "등급 숨기기"
+L.SHOW_RANKS = "모든 등급 표시"
+L.POSITION_LOCKED = "위치 및 크기 잠김"
+L.DRAG_TO_RESIZE = "끌어서 크기 조절"
+L.TWO_PAGE_VIEW = "두 페이지 보기"
+L.ONE_PAGE_VIEW = "한 페이지 보기"
+
+-- Spell tooltips
+L.REQUIRES_TALENT = "특성 포인트가 필요합니다."
+L.VISIT_TRAINER = "직업 상급자를 방문하여 배우세요."
+L.NOT_ON_BARS = "행동 단축바에 없음"
+L.TRAINING_COST = "수련 비용:"
+L.TRAINING_FREE = "무료"
+L.TOTAL_COST = "총 비용: %s"
+L.COST = "비용: %s"
+
+-- Chat messages
+L.DB_RESET = "설정을 초기화했습니다 (DB 버전 %s)."
+L.TRAINER_CAPTURED = "상급자에게서 주문 %d개를 가져왔습니다."
+L.SETTINGS_RESET = "설정을 기본값으로 초기화했습니다."
+L.NO_TRAINER_DATA = "지울 상급자 데이터가 없습니다."
+L.TRAINER_DATA_CLEARED = "상급자 데이터를 지웠습니다. 상급자를 방문하면 다시 읽어옵니다."
+L.COMBAT_NO_OPEN = "전투 중에는 /msb로 마법책을 열 수 없습니다. 마법책 단축키를 사용하세요."
+L.COMBAT_NO_RESET = "전투 중에는 설정을 초기화할 수 없습니다."
+L.COMMANDS = "명령어:"
+L.CMD_TOGGLE = "마법책 열기 또는 닫기"
+L.CMD_RESET = "설정을 기본값으로 초기화"
+L.CMD_RESCAN = "상급자 주문 잊기 (다음 방문 때 다시 읽음)"

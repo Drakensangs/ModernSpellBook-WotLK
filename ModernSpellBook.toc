@@ -1,11 +1,29 @@
 ## Interface: 30300
 ## Title: Modern Spellbook
 ## Notes: Changes the spellbook to a more modern look inspired by the retail version.
+## Notes-deDE: Gibt dem Zauberbuch ein modernes Aussehen nach dem Vorbild der Retail-Version.
+## Notes-esES: Da al libro de hechizos un aspecto más moderno, inspirado en la versión retail.
+## Notes-frFR: Donne au grimoire un aspect plus moderne, inspiré de la version retail.
+## Notes-koKR: 마법책을 최신 버전에서 영감을 받은 현대적인 모습으로 바꿉니다.
+## Notes-ruRU: Придаёт книге заклинаний современный вид в стиле retail-версии.
+## Notes-zhCN: 将法术书改为受正式服启发的现代外观。
+## Notes-zhTW: 將法術書改為受正式服啟發的現代外觀。
 ## Author: Original addon: vegeta1k95; WotLK version: Drakensangs
-## Version: 3.1
+## Version: 3.2
 ## DefaultState: enabled
 
 ## SavedVariablesPerCharacter: ModernSpellBook_DB
+
+# Localization: English first (the default), then the translations. Each
+# translation only applies on its own client (it checks GetLocale()).
+Localization\localization.lua
+Localization\localization.cn.lua
+Localization\localization.de.lua
+Localization\localization.es.lua
+Localization\localization.fr.lua
+Localization\localization.ko.lua
+Localization\localization.ru.lua
+Localization\localization.tw.lua
 
 # Lib
 Lib\MSB_Class.lua
@@ -15,7 +33,6 @@ Lib\MSB_TextStyle.lua
 
 # Core
 Core\MSB_CombatGuard.lua
-Core\MSB_Localization.lua
 Core\MSB_Icon.lua
 Core\MSB_SlashCommands.lua
 

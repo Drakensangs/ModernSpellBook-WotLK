@@ -56,7 +56,8 @@ MSB_class "MSB_CCategoryItem"
 	-- ========================= SET ===============================
 
 	Set = function(self, categoryName, currentPageRows, page, fallbackIcon)
-		self.text:SetText(categoryName)
+		-- "Professions" is the section's key; it shows the game's own word
+		self.text:SetText(categoryName == "Professions" and MSB_STR.PROFESSIONS or categoryName)
 
 		-- Look up spec icon: spell tabs first, talent tabs, then first spell icon
 		local specIconFound = false

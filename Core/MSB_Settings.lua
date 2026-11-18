@@ -8,6 +8,7 @@
 MSB_DEFAULTS = {
 	showPassives = true,
 	showSpellCounter = true,
+	showTalents = true,
 	rememberPage = true,
 	showUnlearned = true,
 	showUpcoming = true,
@@ -140,7 +141,7 @@ MSB_class "MSB_CSettingsMenu"
 		if (level == 1) then
 			-- Show passive spells
 			info = {}
-			info.text = (ModernSpellBookFrame.ClientLocale and ModernSpellBookFrame.ClientLocale.ShowPassive) or "Show passives"
+			info.text = MSB_L.SHOW_PASSIVES
 			info.checked = ModernSpellBook_DB.showPassives
 			info.keepShownOnClick = 1
 			info.func = function()
@@ -151,7 +152,7 @@ MSB_class "MSB_CSettingsMenu"
 
 			-- Remember page
 			info = {}
-			info.text = "Remember page"
+			info.text = MSB_L.REMEMBER_PAGE
 			info.checked = ModernSpellBook_DB.rememberPage
 			info.keepShownOnClick = 1
 			info.func = function()
@@ -162,7 +163,7 @@ MSB_class "MSB_CSettingsMenu"
 
 			-- Spell counter
 			info = {}
-			info.text = "Spell counter"
+			info.text = MSB_L.SPELL_COUNTER
 			info.checked = ModernSpellBook_DB.showSpellCounter
 			info.keepShownOnClick = 1
 			info.func = function()
@@ -171,9 +172,21 @@ MSB_class "MSB_CSettingsMenu"
 			end
 			UIDropDownMenu_AddButton(info, level)
 
+			-- Show talents (unlearned ones only with "Show unlearned" on).
+			-- onChanged rebuilds the pages and the upcoming spells row.
+			info = {}
+			info.text = MSB_L.SHOW_TALENTS
+			info.checked = ModernSpellBook_DB.showTalents
+			info.keepShownOnClick = 1
+			info.func = function()
+				ModernSpellBook_DB.showTalents = not ModernSpellBook_DB.showTalents
+				onChanged()
+			end
+			UIDropDownMenu_AddButton(info, level)
+
 			-- Show unlearned spells
 			info = {}
-			info.text = "Show unlearned"
+			info.text = MSB_L.SHOW_UNLEARNED
 			info.checked = ModernSpellBook_DB.showUnlearned
 			info.keepShownOnClick = 1
 			info.func = function()
@@ -184,7 +197,7 @@ MSB_class "MSB_CSettingsMenu"
 
 			-- Show upcoming spells
 			info = {}
-			info.text = "Show upcoming"
+			info.text = MSB_L.SHOW_UPCOMING
 			info.checked = ModernSpellBook_DB.showUpcoming
 			info.keepShownOnClick = 1
 			info.func = function()
@@ -195,7 +208,7 @@ MSB_class "MSB_CSettingsMenu"
 
 			-- Continuation headers
 			info = {}
-			info.text = "Continuation headers"
+			info.text = MSB_L.CONTINUATION_HEADERS
 			info.checked = ModernSpellBook_DB.showContinuationHeaders
 			info.keepShownOnClick = 1
 			info.func = function()
@@ -206,7 +219,7 @@ MSB_class "MSB_CSettingsMenu"
 
 			-- Lock position & scale
 			info = {}
-			info.text = "Lock position & scale"
+			info.text = MSB_L.LOCK_POSITION
 			info.checked = ModernSpellBook_DB.lockPositionAndScale
 			info.keepShownOnClick = 1
 			info.func = function()
@@ -217,7 +230,7 @@ MSB_class "MSB_CSettingsMenu"
 
 			-- Class-colored bookmark
 			info = {}
-			info.text = "Class-colored bookmark"
+			info.text = MSB_L.CLASS_BOOKMARK
 			info.checked = ModernSpellBook_DB.classColoredBookmark
 			info.keepShownOnClick = 1
 			info.func = function()
@@ -228,7 +241,7 @@ MSB_class "MSB_CSettingsMenu"
 
 			-- Glow on spells that aren't on any action bar
 			info = {}
-			info.text = "Highlight spells not on action bars"
+			info.text = MSB_L.HIGHLIGHT_UNPLACED
 			info.checked = ModernSpellBook_DB.highlightUnplaced
 			info.keepShownOnClick = 1
 			info.func = function()
@@ -240,7 +253,7 @@ MSB_class "MSB_CSettingsMenu"
 
 			-- Highlights submenu
 			info = {}
-			info.text = "Highlights"
+			info.text = MSB_L.HIGHLIGHTS
 			info.hasArrow = 1
 			info.notCheckable = 1
 			info.value = "highlights"
@@ -248,7 +261,7 @@ MSB_class "MSB_CSettingsMenu"
 
 			-- Font size submenu
 			info = {}
-			info.text = "Font size"
+			info.text = MSB_L.FONT_SIZE
 			info.hasArrow = 1
 			info.notCheckable = 1
 			info.value = "fontSize"
@@ -256,7 +269,7 @@ MSB_class "MSB_CSettingsMenu"
 
 			-- Spell Text Color submenu
 			info = {}
-			info.text = "Spell text color"
+			info.text = MSB_L.TEXT_COLOR
 			info.hasArrow = 1
 			info.notCheckable = 1
 			info.value = "textColor"
@@ -264,14 +277,14 @@ MSB_class "MSB_CSettingsMenu"
 
 			-- Icon Frame submenu
 			info = {}
-			info.text = "Spell icon frame"
+			info.text = MSB_L.ICON_FRAME
 			info.hasArrow = 1
 			info.notCheckable = 1
 			info.value = "iconFrame"
 			UIDropDownMenu_AddButton(info, level)
 
 			info = {}
-			info.text = "Reset position & scale"
+			info.text = MSB_L.RESET_POSITION
 			info.notCheckable = 1
 			info.func = function()
 				ModernSpellBook_DB.position = nil
@@ -284,7 +297,7 @@ MSB_class "MSB_CSettingsMenu"
 		elseif (level == 2) then
 			if (UIDROPDOWNMENU_MENU_VALUE == "textColor") then
 				info = {}
-				info.text = "Light"
+				info.text = MSB_L.TEXT_COLOR_LIGHT
 				info.checked = ModernSpellBook_DB.textColorMode ~= "dark"
 				info.func = function()
 					ModernSpellBook_DB.textColorMode = "light"
@@ -294,7 +307,7 @@ MSB_class "MSB_CSettingsMenu"
 				UIDropDownMenu_AddButton(info, level)
 
 				info = {}
-				info.text = "Dark"
+				info.text = MSB_L.TEXT_COLOR_DARK
 				info.checked = ModernSpellBook_DB.textColorMode == "dark"
 				info.func = function()
 					ModernSpellBook_DB.textColorMode = "dark"
@@ -321,7 +334,7 @@ MSB_class "MSB_CSettingsMenu"
 
 			elseif (UIDROPDOWNMENU_MENU_VALUE == "highlights") then
 				info = {}
-				info.text = "Learned spells glow"
+				info.text = MSB_L.LEARNED_GLOW
 				info.checked = ModernSpellBook_DB.highlights.learnedGlow
 				info.keepShownOnClick = 1
 				info.func = function()
@@ -331,7 +344,7 @@ MSB_class "MSB_CSettingsMenu"
 				UIDropDownMenu_AddButton(info, level)
 
 				info = {}
-				info.text = "Learned spells badge"
+				info.text = MSB_L.LEARNED_BADGE
 				info.checked = ModernSpellBook_DB.highlights.learnedBadge
 				info.keepShownOnClick = 1
 				info.func = function()
@@ -341,7 +354,7 @@ MSB_class "MSB_CSettingsMenu"
 				UIDropDownMenu_AddButton(info, level)
 
 				info = {}
-				info.text = "Available spells glow"
+				info.text = MSB_L.AVAILABLE_GLOW
 				info.checked = ModernSpellBook_DB.highlights.availableGlow
 				info.keepShownOnClick = 1
 				info.func = function()
@@ -351,7 +364,7 @@ MSB_class "MSB_CSettingsMenu"
 				UIDropDownMenu_AddButton(info, level)
 
 				info = {}
-				info.text = "Available spells badge"
+				info.text = MSB_L.AVAILABLE_BADGE
 				info.checked = ModernSpellBook_DB.highlights.availableBadge
 				info.keepShownOnClick = 1
 				info.func = function()
@@ -362,7 +375,7 @@ MSB_class "MSB_CSettingsMenu"
 
 			elseif (UIDROPDOWNMENU_MENU_VALUE == "iconFrame") then
 				info = {}
-				info.text = "Spells"
+				info.text = MSB_L.ICON_FRAME_SPELLS
 				info.checked = ModernSpellBook_DB.iconFrame.spells
 				info.keepShownOnClick = 1
 				info.func = function()
@@ -372,7 +385,7 @@ MSB_class "MSB_CSettingsMenu"
 				UIDropDownMenu_AddButton(info, level)
 
 				info = {}
-				info.text = "Other"
+				info.text = MSB_L.ICON_FRAME_OTHER
 				info.checked = ModernSpellBook_DB.iconFrame.other
 				info.keepShownOnClick = 1
 				info.func = function()
@@ -382,7 +395,7 @@ MSB_class "MSB_CSettingsMenu"
 				UIDropDownMenu_AddButton(info, level)
 
 				info = {}
-				info.text = "Unlearned"
+				info.text = MSB_L.ICON_FRAME_UNLEARNED
 				info.checked = ModernSpellBook_DB.iconFrame.unlearned
 				info.keepShownOnClick = 1
 				info.func = function()

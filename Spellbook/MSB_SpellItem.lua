@@ -124,9 +124,9 @@ MSB_class "MSB_CSpellItem"
 		arrow:SetScript("OnEnter", function()
 			GameTooltip:SetOwner(arrow, "ANCHOR_RIGHT")
 			if (ModernSpellBookFrame.rankFlyout and ModernSpellBookFrame.rankFlyout:IsOpenFor(item)) then
-				GameTooltip:SetText("Hide ranks", 1, 1, 1)
+				GameTooltip:SetText(MSB_L.HIDE_RANKS, 1, 1, 1)
 			else
-				GameTooltip:SetText("Show all ranks", 1, 1, 1)
+				GameTooltip:SetText(MSB_L.SHOW_RANKS, 1, 1, 1)
 			end
 			GameTooltip:Show()
 		end)
@@ -303,9 +303,9 @@ MSB_class "MSB_CSpellItem"
 		if (spellInfo.isUnlearned and spellInfo.levelReq and spellInfo.levelReq > 0) then
 			local rankText = spellInfo.spellRank or ""
 			if (rankText ~= "") then
-				self.rankText:SetText(rankText .. " (Lvl " .. spellInfo.levelReq .. ")")
+				self.rankText:SetText(rankText .. " (" .. MSB_STR.LEVEL_SHORT .. " " .. spellInfo.levelReq .. ")")
 			else
-				self.rankText:SetText("Lvl " .. spellInfo.levelReq)
+				self.rankText:SetText(MSB_STR.LEVEL_SHORT .. " " .. spellInfo.levelReq)
 			end
 		else
 			self.rankText:SetText(spellInfo.spellRank)
@@ -342,10 +342,8 @@ MSB_class "MSB_CSpellItem"
 		if (not spellInfo) then return end
 		local spellIcon = self.spellIcon
 		local frame = self.frame
-		-- No icon highlight on passives: the round ring stays clean on hover
-		if (not spellInfo.isPassive) then
-			spellIcon.hover_glow:Show()
-		end
+		-- Square highlight on spells, round one on passives (set in SetSpell)
+		spellIcon.hover_glow:Show()
 
 		-- Dismiss available-to-learn highlight on hover
 		spellIcon:DismissAvailableHighlight(spellInfo)
@@ -402,17 +400,17 @@ MSB_class "MSB_CSpellItem"
 			if (spellInfo.levelReq and spellInfo.levelReq > 0) then
 				local playerLevel = UnitLevel("player") or 0
 				if (playerLevel >= spellInfo.levelReq) then
-					GameTooltip:AddLine("Requires Level " .. spellInfo.levelReq, 0.2, 1, 0.2)
+					GameTooltip:AddLine(string.format(MSB_STR.REQUIRES_LEVEL, spellInfo.levelReq), 0.2, 1, 0.2)
 				else
-					GameTooltip:AddLine("Requires Level " .. spellInfo.levelReq, 1, 0.2, 0.2)
+					GameTooltip:AddLine(string.format(MSB_STR.REQUIRES_LEVEL, spellInfo.levelReq), 1, 0.2, 0.2)
 				end
 			end
 			if (spellInfo.isTalent) then
-				GameTooltip:AddLine("Requires talent point.", 1, 0.82, 0)
+				GameTooltip:AddLine(MSB_L.REQUIRES_TALENT, 1, 0.82, 0)
 			else
 				-- Saved from the trainer's list on the last visit
 				MSB_AddTrainingCostLine(GameTooltip, spellInfo.cost)
-				GameTooltip:AddLine("Visit a class trainer to learn.", 1, 0.82, 0)
+				GameTooltip:AddLine(MSB_L.VISIT_TRAINER, 1, 0.82, 0)
 			end
 		elseif (not spellInfo.isTalent) then
 			GameTooltip:SetSpell(spellInfo.spellID, spellInfo.bookType or BOOKTYPE_SPELL)
@@ -431,7 +429,7 @@ MSB_class "MSB_CSpellItem"
 		end
 		if (not spellInfo.isRankEntry and ModernSpellBook_DB.highlightUnplaced
 			and MSB_ActionBarHelper:IsSpellUnplaced(spellInfo)) then
-			GameTooltip:AddLine("Not on your action bars", 1, 0.45, 0.2)
+			GameTooltip:AddLine(MSB_L.NOT_ON_BARS, 1, 0.45, 0.2)
 		end
 		GameTooltip:Show()
 	end;

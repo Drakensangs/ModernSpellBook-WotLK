@@ -9,6 +9,55 @@ function MSB_SpellKey(name, rank)
 	return name .. "|" .. (rank or "")
 end
 
+-- Names of every talent of your class, learned or not (set by name)
+function MSB_GetTalentNames()
+	local names = {}
+	for t = 1, GetNumTalentTabs() do
+		for i = 1, GetNumTalents(t) do
+			local nameTalent = GetTalentInfo(t, i)
+			if (nameTalent) then names[nameTalent] = true end
+		end
+	end
+	return names
+end
+
+-- A spell named after a talent: the talent's own spell ("Mortal Strike"),
+-- or a form of it ("Mangle (Cat)", "Feral Charge - Bear"). 3.3.5a has no
+-- API that tags talent spells, so the name is all there is to go by.
+function MSB_IsTalentName(spellName, talentNames)
+	if (not spellName) then return false end
+	if (talentNames[spellName]) then return true end
+	local stem = string.match(spellName, "^(.-) %(")
+	if (stem and talentNames[stem]) then return true end
+	stem = string.match(spellName, "^(.-) %- ")
+	if (stem and talentNames[stem]) then return true end
+	return false
+end
+
+-- A talent, or any rank of a talent ability, learned or not
+function MSB_IsTalentSpell(spellInfo)
+	return (spellInfo.isTalent or spellInfo.isTalentAbility) and true or false
+end
+
+-- Names of the active (castable) spells in your spellbook. A talent ability
+-- you have learned stays visible with "Show talents" off, and so do its
+-- higher trainer ranks.
+function MSB_GetKnownActiveSpellNames()
+	local names = {}
+	local numTabs = GetNumSpellTabs and GetNumSpellTabs() or MAX_SKILLLINE_TABS or 4
+	for i = 1, numTabs do
+		local tabName, _, offset, numSpells = GetSpellTabInfo(i)
+		if (not tabName) then break end
+		for s = offset + 1, offset + (numSpells or 0) do
+			local spellName = MSB_GetSpellBookItemName(s, BOOKTYPE_SPELL)
+			if (spellName and not MSB_IsPassiveSpell(s, BOOKTYPE_SPELL)) then
+				names[spellName] = true
+			end
+		end
+	end
+	return names
+end
+
 -- Profession skills and specializations: moved from General into their
 -- own "Professions" section (English names only)
 local professionRanks = {
@@ -159,7 +208,7 @@ MSB_class "MSB_CSpellDataService"
 	FilterHighestRanks = function(self, spellList)
 		local function getRankNum(rankStr)
 			if (not rankStr or rankStr == "") then return 0 end
-			if (rankStr == "Talent") then return 1 end
+			if (rankStr == MSB_STR.TALENT) then return 1 end
 			local _, _, num = string.find(rankStr, "(%d+)")
 			return tonumber(num) or 0
 		end
@@ -347,6 +396,7 @@ MSB_class "MSB_CSpellDataService"
 	GetPlayerSpells = function(self, showGeneralTab)
 		local allSpellsDict = {}
 		local canShowPassives = ModernSpellBook_DB.showPassives
+		local canShowTalents = ModernSpellBook_DB.showTalents
 		local passiveSpellsDict = {}
 
 		-- Stances, forms, auras and presences, by name -> form index
@@ -411,6 +461,7 @@ MSB_class "MSB_CSpellDataService"
 				end
 			end
 
+			if (not canShowTalents) then self:RemoveTalentSpells(allSpellsDict) end
 			self:MergeUnlearnedSpells(allSpellsDict, true)
 			for tabName, spells in pairs(allSpellsDict) do
 				self:AttachLearnedRanks(spells)
@@ -480,7 +531,8 @@ MSB_class "MSB_CSpellDataService"
 						local spellInfo = allSpellsDict[tabName][alreadyActiveSpellListIndex]
 						MSB_TalentService:MarkSpellAsTalent(spellInfo)
 					end
-				elseif (canShowPassives) then
+				elseif (canShowPassives and (canShowTalents or not passiveSpells[i].isTalent)) then
+					-- Learned passive talents (no book button) only with "Show talents" on
 					if (not allSpellsDict[tabName]) then
 						allSpellsDict[tabName] = {}
 					end
@@ -493,6 +545,10 @@ MSB_class "MSB_CSpellDataService"
 			self:SortSpells(spells)
 		end
 
+		-- Learned passive talents are left out with "Show talents" off; learned
+		-- active talents stay. A section left empty is not drawn.
+		if (not canShowTalents) then self:RemoveTalentSpells(allSpellsDict) end
+
 		self:MergeUnlearnedSpells(allSpellsDict, false)
 
 		for tabName, spells in pairs(allSpellsDict) do
@@ -501,6 +557,23 @@ MSB_class "MSB_CSpellDataService"
 		end
 
 		return allSpellsDict
+	end;
+
+	-- Drops learned passive talents (tagged, or named after a talent) from
+	-- the learned spells of a tab. Learned active talents (Mortal Strike,
+	-- Mangle (Cat), ...) are castable spells and are kept.
+	RemoveTalentSpells = function(self, allSpellsDict)
+		local talentNames = MSB_GetTalentNames()
+		for category, spells in pairs(allSpellsDict) do
+			local kept = {}
+			for _, spellInfo in ipairs(spells) do
+				local isTalent = MSB_IsTalentSpell(spellInfo) or MSB_IsTalentName(spellInfo.spellName, talentNames)
+				if (not isTalent or not spellInfo.isPassive) then
+					table.insert(kept, spellInfo)
+				end
+			end
+			allSpellsDict[category] = kept
+		end
 	end;
 
 	-- tab: 1 class, 2 general, 3 pet. Returns the spells by category and
@@ -526,8 +599,11 @@ MSB_class "MSB_CSpellDataService"
 
 	SetupInitiallyKnownSpells = function(self)
 		-- Temporarily include passives so they are registered as already seen
+		-- (and talents, so turning "Show talents" on later shows none as new)
 		local previousShowPassives = ModernSpellBook_DB.showPassives
+		local previousShowTalents = ModernSpellBook_DB.showTalents
 		ModernSpellBook_DB.showPassives = true
+		ModernSpellBook_DB.showTalents = true
 
 		local allInitialSpells = {}
 		table.insert(allInitialSpells, self:GetPlayerSpells(false))
@@ -548,6 +624,7 @@ MSB_class "MSB_CSpellDataService"
 		end
 
 		ModernSpellBook_DB.showPassives = previousShowPassives
+		ModernSpellBook_DB.showTalents = previousShowTalents
 	end;
 
 	MergeUnlearnedSpells = function(self, allSpellsDict, showGeneralTab)
@@ -557,6 +634,10 @@ MSB_class "MSB_CSpellDataService"
 		if (not unlearned) then return end
 
 		local canShowPassives = ModernSpellBook_DB.showPassives
+		-- Unlearned talents are hidden with "Show talents" off. Trainer ranks
+		-- of an active talent you have learned stay, like any spell's ranks.
+		local canShowTalents = ModernSpellBook_DB.showTalents
+		local knownActive = (not canShowTalents) and MSB_GetKnownActiveSpellNames() or nil
 
 		for category, spells in pairs(unlearned) do
 			local isGeneral = (category == GENERAL)
@@ -578,7 +659,10 @@ MSB_class "MSB_CSpellDataService"
 				end
 
 				for _, spellInfo in ipairs(spells) do
-					if (not spellInfo.isPassive or canShowPassives) then
+					local isKnownTalentRank = knownActive and not spellInfo.isTalent
+						and not spellInfo.isPassive and knownActive[spellInfo.spellName]
+					if ((not spellInfo.isPassive or canShowPassives)
+						and (canShowTalents or not MSB_IsTalentSpell(spellInfo) or isKnownTalentRank)) then
 						table.insert(allSpellsDict[targetCat], spellInfo)
 					end
 				end
@@ -590,8 +674,22 @@ MSB_class "MSB_CSpellDataService"
 		local playerLevel = UnitLevel("player")
 		local upcoming = {}
 
-		-- Spells that need a talent you haven't learned stay out of the row
+		-- Spells that need a talent you haven't learned stay out of the row,
+		-- and so do ranks of unlearned talents while "Show talents" is off.
+		-- Ranks of an active talent you have learned are shown.
 		local talentBlocked = MSB_TrainerDataService:GetTalentBlockedSpells()
+		if (not ModernSpellBook_DB.showTalents) then
+			local talentNames = MSB_GetTalentNames()
+			local knownActive = MSB_GetKnownActiveSpellNames()
+			for key, entry in pairs(ModernSpellBook_DB.spells) do
+				if (not entry.learned) then
+					local name = string.match(key, "^(.-)|")
+					if (name and not knownActive[name] and MSB_IsTalentName(name, talentNames)) then
+						talentBlocked[name] = true
+					end
+				end
+			end
+		end
 
 		-- Find the lowest level_req above player level among eligible spells
 		local nextLevel = nil
@@ -644,12 +742,35 @@ MSB_class "MSB_CSpellDataService"
 			return
 		end
 
+		-- Spellbook spells, plus learned single-rank talents without a book
+		-- button (Anger Management, ...). Those are in the unlearned list until
+		-- learned, so without counting them here the total dropped by one.
 		local learned = 0
+		local bookNames = {}
 		local numTabs = GetNumSpellTabs and GetNumSpellTabs() or 4
 		for i = 1, numTabs do
-			local tabName, _, _, numSpells = GetSpellTabInfo(i)
+			local tabName, _, offset, numSpells = GetSpellTabInfo(i)
 			if (not tabName) then break end
 			learned = learned + (numSpells or 0)
+			for s = offset + 1, offset + (numSpells or 0) do
+				local spellName = GetSpellName(s, BOOKTYPE_SPELL)
+				if (spellName) then
+					bookNames[spellName] = true
+					bookNames[MSB_TalentStem(spellName)] = true
+					local dashStem = string.match(spellName, "^(.-) %- ")
+					if (dashStem) then bookNames[dashStem] = true end
+				end
+			end
+		end
+		-- Multi-rank passive talents are never in the unlearned list, so they
+		-- aren't counted either
+		for t = 1, GetNumTalentTabs() do
+			for i = 1, GetNumTalents(t) do
+				local nameTalent, _, _, _, currRank, maxRank = GetTalentInfo(t, i)
+				if (nameTalent and currRank > 0 and maxRank == 1 and not bookNames[nameTalent]) then
+					learned = learned + 1
+				end
+			end
 		end
 
 		local unlearned = 0
@@ -663,11 +784,11 @@ MSB_class "MSB_CSpellDataService"
 		end
 
 		if (ModernSpellBook_DB.trainerScanned and unlearned > 0) then
-			ModernSpellBookFrame.spellCounter:SetText(learned .. "/" .. (learned + unlearned) .. " learned")
+			ModernSpellBookFrame.spellCounter:SetText(string.format(MSB_L.COUNTER_LEARNED_OF, learned, learned + unlearned))
 		elseif (ModernSpellBook_DB.trainerScanned) then
-			ModernSpellBookFrame.spellCounter:SetText(learned .. " learned")
+			ModernSpellBookFrame.spellCounter:SetText(string.format(MSB_L.COUNTER_LEARNED, learned))
 		else
-			ModernSpellBookFrame.spellCounter:SetText(learned .. "/? learned")
+			ModernSpellBookFrame.spellCounter:SetText(string.format(MSB_L.COUNTER_LEARNED_UNKNOWN, learned))
 		end
 		ModernSpellBookFrame.spellCounter:Show()
 	end;

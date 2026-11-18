@@ -256,7 +256,7 @@ MSB_class "MSB_CTrainerDataService"
 		ModernSpellBook_DB.trainerServiceCount = numServices
 		ModernSpellBook_DB.trainerCostsSaved = true
 
-		DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00ModernSpellBook:|r Captured " .. capturedCount .. " spells from trainer.")
+		DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00ModernSpellBook:|r " .. string.format(MSB_L.TRAINER_CAPTURED, capturedCount))
 
 		-- The pages are rebuilt even while the book is closed: otherwise the
 		-- next opening shows the pages from before the trainer visit
@@ -320,6 +320,9 @@ MSB_class "MSB_CTrainerDataService"
 		end
 
 		local talentBlockedSpells = self:GetTalentBlockedSpells()
+		-- Trainer ranks of talent abilities (Mortal Strike rank 2) are tagged,
+		-- so "Show talents" off hides them with the talent
+		local talentNames = MSB_GetTalentNames()
 
 		-- Known spell names, plus their stems, to tell learned talents apart
 		local knownNames = {}
@@ -364,6 +367,7 @@ MSB_class "MSB_CTrainerDataService"
 								cost = entry.cost,
 								isPassive = (rank == "Passive" or rank == PET_PASSIVE),
 								isTalent = false,
+								isTalentAbility = MSB_IsTalentName(name, talentNames) or nil,
 								isPetSpell = false,
 								isUnlearned = true,
 								talentBlocked = talentBlockedSpells[name] or false,
@@ -407,10 +411,10 @@ MSB_class "MSB_CTrainerDataService"
 								local rankLabel
 								local isPassiveTalent
 								if (trainerHasRanks) then
-									rankLabel = "Talent"
+									rankLabel = MSB_STR.TALENT
 									isPassiveTalent = false
 								elseif (maxRank == 1) then
-									rankLabel = "Talent"
+									rankLabel = MSB_STR.TALENT
 									isPassiveTalent = false
 								else
 									rankLabel = nil

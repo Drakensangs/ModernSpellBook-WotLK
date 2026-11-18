@@ -45,8 +45,6 @@ MSB_BookmarkClasses = {
 	PRIEST = true, ROGUE = true, SHAMAN = true, WARLOCK = true, WARRIOR = true,
 }
 
-MSB_TRAINER_HINT_LONG = "Visit a class trainer in a major city to fetch the FULL list of available spells."
-MSB_TRAINER_HINT_SHORT = "Visit a class trainer to fetch the FULL spell list."
 
 -- Blizzard draws these XP bar parts in DIALOG strata, above the book.
 -- They are lowered while the book is open and restored when it closes.
@@ -148,7 +146,7 @@ MSB_class "MSB_CSpellBook"
 				ModernSpellBook_DB[k] = nil
 			end
 			if (hadOldData) then
-				DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00ModernSpellBook:|r Settings reset (DB version " .. DB_VERSION .. ").")
+				DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00ModernSpellBook:|r " .. string.format(MSB_L.DB_RESET, tostring(DB_VERSION)))
 			end
 		end
 
@@ -178,7 +176,6 @@ MSB_class "MSB_CSpellBook"
 	Setup = function(self)
 		self.setupPending = nil
 		self:CreateWindow()
-		self.frame.ClientLocale = MSB_Localization.current
 		self.frame.stanceButtons = {}
 		self.frame.unlockedStances = {}
 		self.frame.isFirstLoad = true
@@ -195,7 +192,7 @@ MSB_class "MSB_CSpellBook"
 		local className = UnitClass("player")
 		self.frame.tab1 = self:NewTab(className)
 		self.frame.tab2 = self:NewTab(GENERAL)
-		self.frame.tab3 = self:NewTab("Pet")
+		self.frame.tab3 = self:NewTab(MSB_L.TAB_PET)
 		self.frame.customTabs = {}
 
 		MSB_SecureBook.Build(self)
@@ -437,7 +434,7 @@ MSB_class "MSB_CSpellBook"
 	AddSearchBar = function(self)
 		self.frame.searchBar = MSB_CSearchBar(
 			self.frame,
-			self.frame.ClientLocale.SearchAbilities,
+			MSB_L.SEARCH_PLACEHOLDER,
 			function() MSB_SpellBook:RefreshPage() end
 		)
 		-- Right end of the tab strip (the settings cog sits to its left)
@@ -484,9 +481,9 @@ MSB_class "MSB_CSpellBook"
 		resizeHandle:SetScript("OnEnter", function()
 			GameTooltip:SetOwner(resizeHandle, "ANCHOR_TOPLEFT")
 			if (ModernSpellBook_DB.lockPositionAndScale) then
-				GameTooltip:SetText("Position & scale locked")
+				GameTooltip:SetText(MSB_L.POSITION_LOCKED)
 			else
-				GameTooltip:SetText("Drag to resize")
+				GameTooltip:SetText(MSB_L.DRAG_TO_RESIZE)
 			end
 			GameTooltip:Show()
 		end)
@@ -572,7 +569,7 @@ MSB_class "MSB_CSpellBook"
 
 		self.frame.noresultsText = self.frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 		self.frame.noresultsText:SetPoint("CENTER", self.frame.backgroundLeft, "CENTER", 0, 0)
-		self.frame.noResultsMessage = self.frame.ClientLocale.NoResults .. NEW .. ", " .. TALENT .. "'"
+		self.frame.noResultsMessage = string.format(MSB_L.NO_RESULTS, MSB_STR.NEW, MSB_STR.TALENT)
 		self.frame.noresultsText:SetText(self.frame.noResultsMessage)
 		self.frame.noresultsText:SetTextColor(0, 0, 0)
 		self.frame.noresultsText:SetShadowOffset(0, 0)
@@ -582,7 +579,7 @@ MSB_class "MSB_CSpellBook"
 		-- row of spells. PositionFooterTexts places the hint per view.
 		self.frame.trainerHint = self.frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 		self.frame.trainerHint:SetPoint("BOTTOM", self.frame, "BOTTOM", 0, MSB_LAYOUT.footerBottom)
-		self.frame.trainerHint:SetText(MSB_TRAINER_HINT_LONG)
+		self.frame.trainerHint:SetText(MSB_L.TRAINER_HINT_LONG)
 		self.frame.trainerHint:SetFont(MSB_GetFont(), 10)
 		self.frame.trainerHint:SetTextColor(1, 1, 1)
 		self.frame.trainerHint:Hide()
@@ -698,7 +695,7 @@ MSB_class "MSB_CSpellBook"
 
 		self.frame.pageText = self.frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 		self.frame.pageText:SetPoint("BOTTOMRIGHT", self.frame, "BOTTOMRIGHT", -110, MSB_LAYOUT.pageTextBottom)
-		self.frame.pageText:SetText("Page 1")
+		self.frame.pageText:SetText(string.format(MSB_L.PAGE_NUMBER, 1, 1))
 		self.frame.pageText:SetTextColor(1, 1, 1)
 		self.frame:EnableMouseWheel(true)
 	end;
@@ -736,9 +733,9 @@ MSB_class "MSB_CSpellBook"
 		button:SetScript("OnEnter", function()
 			GameTooltip:SetOwner(button, "ANCHOR_RIGHT")
 			if (ModernSpellBook_DB.isMinimized) then
-				GameTooltip:SetText("Two page view", 1, 1, 1)
+				GameTooltip:SetText(MSB_L.TWO_PAGE_VIEW, 1, 1, 1)
 			else
-				GameTooltip:SetText("One page view", 1, 1, 1)
+				GameTooltip:SetText(MSB_L.ONE_PAGE_VIEW, 1, 1, 1)
 			end
 			GameTooltip:Show()
 		end)
@@ -864,11 +861,11 @@ MSB_class "MSB_CSpellBook"
 		hint:ClearAllPoints()
 		if (isMainFrameMinimized) then
 			-- Single page: shorter text, right-aligned to stay clear of the counter
-			hint:SetText(MSB_TRAINER_HINT_SHORT)
+			hint:SetText(MSB_L.TRAINER_HINT_SHORT)
 			hint:SetPoint("BOTTOMRIGHT", self.frame, "BOTTOMRIGHT", -45, MSB_LAYOUT.footerBottom)
 		else
 			-- Two pages: centred under the right page
-			hint:SetText(MSB_TRAINER_HINT_LONG)
+			hint:SetText(MSB_L.TRAINER_HINT_LONG)
 			hint:SetPoint("BOTTOM", self.frame.backgroundRight, "BOTTOM", 0, 12)
 		end
 	end;
@@ -968,7 +965,7 @@ MSB_class "MSB_CSpellBook"
 		local allSpells, isPetTab = list[1], list[2]
 		local model = { allSpells = allSpells, pages = {} }
 		if (isPetTab and next(allSpells) == nil) then
-			model.empty = self.frame.ClientLocale.NoPetSpells
+			model.empty = MSB_L.NO_PET_SPELLS
 			return model
 		end
 		local filterString = self.frame.searchBar:GetText() or ""
@@ -1076,7 +1073,7 @@ MSB_class "MSB_CSpellBook"
 		local currentPage = math.max(1, math.min(self.frame.currentPage or 1, self.frame.maxPages))
 
 		if (self.frame.maxPages > 1) then
-			self.frame.pageText:SetText(string.format(PRODUCT_CHOICE_PAGE_NUMBER, currentPage, self.frame.maxPages))
+			self.frame.pageText:SetText(string.format(MSB_L.PAGE_NUMBER, currentPage, self.frame.maxPages))
 			self.frame.pageText:Show()
 		else
 			self.frame.pageText:Hide()
@@ -1187,7 +1184,7 @@ MSB_class "MSB_CSpellBook"
 			return
 		end
 
-		self.frame.upcomingLabel:SetText("New spells at ".. nextLevel ..":")
+		self.frame.upcomingLabel:SetText(string.format(MSB_L.UPCOMING_SPELLS, nextLevel))
 		self.frame.upcomingFrame:Show()
 
 		local maxOffset = math.max(0, totalUpcoming - UPCOMING_VISIBLE_COUNT)

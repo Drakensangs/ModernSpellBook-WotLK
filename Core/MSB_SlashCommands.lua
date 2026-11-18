@@ -38,7 +38,7 @@ MSB_class "MSB_CSlashCommands"
 	-- window in combat: the key, micro button and Escape still work there
 	Toggle = function(self)
 		if (InCombatLockdown()) then
-			DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00ModernSpellBook:|r /msb can't open the book in combat. Use your spellbook key.")
+			DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00ModernSpellBook:|r " .. MSB_L.COMBAT_NO_OPEN)
 			return
 		end
 		if (MSB_SpellBook.isSetUp) then MSB_SecureBook.Toggle(false) end
@@ -48,7 +48,7 @@ MSB_class "MSB_CSlashCommands"
 	ResetSettings = function(self)
 		-- Moving and scaling the window is blocked in combat
 		if (InCombatLockdown()) then
-			DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00ModernSpellBook:|r Can't reset settings in combat.")
+			DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00ModernSpellBook:|r " .. MSB_L.COMBAT_NO_RESET)
 			return
 		end
 		local old = ModernSpellBook_DB
@@ -62,7 +62,7 @@ MSB_class "MSB_CSlashCommands"
 		MSB_ApplyDefaults(ModernSpellBook_DB)
 		MSB_SpellBook:ApplySettings()
 
-		DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00ModernSpellBook:|r Settings reset to defaults.")
+		DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00ModernSpellBook:|r " .. MSB_L.SETTINGS_RESET)
 	end;
 
 	ClearTrainerCache = function(self)
@@ -79,22 +79,22 @@ MSB_class "MSB_CSlashCommands"
 			end
 			ModernSpellBook_DB.trainerScanned = false
 			ModernSpellBook_DB.trainerServiceCount = nil
-			DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00ModernSpellBook:|r Trainer cache cleared. Visit a trainer to rescan.")
+			DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00ModernSpellBook:|r " .. MSB_L.TRAINER_DATA_CLEARED)
 
 			MSB_SpellBook:MarkDirty()
 			if (ModernSpellBookFrame and ModernSpellBookFrame:IsVisible()) then
 				MSB_SpellBook:DrawPage()
 			end
 		else
-			DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00ModernSpellBook:|r No trainer cache to clear.")
+			DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00ModernSpellBook:|r " .. MSB_L.NO_TRAINER_DATA)
 		end
 	end;
 
 	PrintHelp = function(self)
-		DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00ModernSpellBook|r commands:")
-		DEFAULT_CHAT_FRAME:AddMessage("  /msb - Open or close the spellbook")
-		DEFAULT_CHAT_FRAME:AddMessage("  /msb reset - Reset settings to defaults")
-		DEFAULT_CHAT_FRAME:AddMessage("  /msb rescan - Forget trainer spells (rescanned on your next visit)")
+		DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00ModernSpellBook|r " .. MSB_L.COMMANDS)
+		DEFAULT_CHAT_FRAME:AddMessage("  /msb - " .. MSB_L.CMD_TOGGLE)
+		DEFAULT_CHAT_FRAME:AddMessage("  /msb reset - " .. MSB_L.CMD_RESET)
+		DEFAULT_CHAT_FRAME:AddMessage("  /msb rescan - " .. MSB_L.CMD_RESCAN)
 	end;
 }
 

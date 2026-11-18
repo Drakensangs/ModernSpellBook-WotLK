@@ -1,0 +1,75 @@
+-- German (deDE). Loaded after localization.lua; does nothing on other clients
+-- (3.3.5a loads every file in the TOC, so each translation checks the locale).
+
+if (GetLocale() ~= "deDE") then return end
+
+local L = MSB_L
+
+-- Settings menu
+L.SHOW_PASSIVES = "Passive anzeigen"
+L.REMEMBER_PAGE = "Seite merken"
+L.SPELL_COUNTER = "Zauberzähler"
+L.SHOW_TALENTS = "Talente anzeigen"
+L.SHOW_UNLEARNED = "Nicht erlernte anzeigen"
+L.SHOW_UPCOMING = "Kommende anzeigen"
+L.CONTINUATION_HEADERS = "Überschriften auf Folgeseiten"
+L.LOCK_POSITION = "Position & Größe sperren"
+L.CLASS_BOOKMARK = "Lesezeichen in Klassenfarbe"
+L.HIGHLIGHT_UNPLACED = "Zauber außerhalb der Aktionsleisten hervorheben"
+L.HIGHLIGHTS = "Hervorhebungen"
+L.LEARNED_GLOW = "Leuchten: erlernte Zauber"
+L.LEARNED_BADGE = "Abzeichen: erlernte Zauber"
+L.AVAILABLE_GLOW = "Leuchten: verfügbare Zauber"
+L.AVAILABLE_BADGE = "Abzeichen: verfügbare Zauber"
+L.FONT_SIZE = "Schriftgröße"
+L.TEXT_COLOR = "Zaubertextfarbe"
+L.TEXT_COLOR_LIGHT = "Hell"
+L.TEXT_COLOR_DARK = "Dunkel"
+L.ICON_FRAME = "Zaubersymbolrahmen"
+L.ICON_FRAME_SPELLS = "Zauber"
+L.ICON_FRAME_OTHER = "Andere"
+L.ICON_FRAME_UNLEARNED = "Nicht erlernt"
+L.RESET_POSITION = "Position & Größe zurücksetzen"
+
+-- Book
+L.TAB_PET = "Begleiter"
+L.TAB_TRAINING = "Ausbildung"
+L.SEARCH_PLACEHOLDER = "Suche: Zauber, Stichwörter"
+L.NO_RESULTS = "Keine Ergebnisse. Versuche einen anderen Suchbegriff.|nZum Beispiel: '%s, %s'"
+L.NO_PET_SPELLS = "Keine Begleiterzauber verfügbar."
+L.PAGE_NUMBER = "Seite %d / %d"
+L.TRAINER_HINT_LONG = "Besuche einen Klassenlehrer in einer Hauptstadt, um ALLE verfügbaren Zauber zu sehen."
+L.TRAINER_HINT_SHORT = "Besuche einen Klassenlehrer für ALLE Zauber."
+L.UPCOMING_SPELLS = "Neue Zauber auf Stufe %d:"
+L.COUNTER_LEARNED = "%d erlernt"
+L.COUNTER_LEARNED_OF = "%d/%d erlernt"
+L.COUNTER_LEARNED_UNKNOWN = "%d/? erlernt"
+L.BADGE_TRAIN = "Lernen"
+L.HIDE_RANKS = "Ränge ausblenden"
+L.SHOW_RANKS = "Alle Ränge anzeigen"
+L.POSITION_LOCKED = "Position & Größe gesperrt"
+L.DRAG_TO_RESIZE = "Ziehen, um die Größe zu ändern"
+L.TWO_PAGE_VIEW = "Zweiseitige Ansicht"
+L.ONE_PAGE_VIEW = "Einseitige Ansicht"
+
+-- Spell tooltips
+L.REQUIRES_TALENT = "Benötigt einen Talentpunkt."
+L.VISIT_TRAINER = "Besuche einen Klassenlehrer, um ihn zu erlernen."
+L.NOT_ON_BARS = "Nicht in deinen Aktionsleisten"
+L.TRAINING_COST = "Ausbildungskosten:"
+L.TRAINING_FREE = "Kostenlos"
+L.TOTAL_COST = "Gesamtkosten: %s"
+L.COST = "Kosten: %s"
+
+-- Chat messages
+L.DB_RESET = "Einstellungen zurückgesetzt (DB-Version %s)."
+L.TRAINER_CAPTURED = "%d Zauber vom Lehrer übernommen."
+L.SETTINGS_RESET = "Einstellungen auf Standard zurückgesetzt."
+L.NO_TRAINER_DATA = "Keine Lehrerdaten zum Löschen vorhanden."
+L.TRAINER_DATA_CLEARED = "Lehrerdaten gelöscht. Besuche einen Lehrer, um sie neu einzulesen."
+L.COMBAT_NO_OPEN = "/msb kann das Buch im Kampf nicht öffnen. Benutze deine Zauberbuch-Taste."
+L.COMBAT_NO_RESET = "Einstellungen können im Kampf nicht zurückgesetzt werden."
+L.COMMANDS = "Befehle:"
+L.CMD_TOGGLE = "Zauberbuch öffnen oder schließen"
+L.CMD_RESET = "Einstellungen auf Standard zurücksetzen"
+L.CMD_RESCAN = "Lehrerzauber vergessen (beim nächsten Besuch neu eingelesen)"

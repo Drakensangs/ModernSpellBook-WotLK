@@ -21,6 +21,7 @@ function MSB_CreateGlow(parent, size, color, frameLevel, texture)
     return glowFrame, glowTex
 end
 
+-- Small label ("New", "Train"), at least 32 wide and wider for longer words
 function MSB_CreateBadge(parent, text, bgColor, borderColor, frameLevel)
     local badge = CreateFrame("Frame", nil, parent)
     badge:SetWidth(32)
@@ -38,9 +39,10 @@ function MSB_CreateBadge(parent, text, bgColor, borderColor, frameLevel)
 
     local badgeText = badge:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     badgeText:SetPoint("CENTER", badge, "CENTER", 0, 1)
-    badgeText:SetText(text)
     badgeText:SetFont(MSB_GetFont(), 8)
+    badgeText:SetText(text)
     badgeText:SetTextColor(1, 1, 1)
+    badge:SetWidth(math.max(32, math.ceil(badgeText:GetStringWidth()) + 10))
 
     return badge, badgeText
 end
@@ -104,10 +106,10 @@ end
 function MSB_AddTrainingCostLine(tooltip, cost)
     if (not cost) then return end
     if (cost <= 0) then
-        tooltip:AddDoubleLine("Training cost:", "Free", 1, 0.82, 0, 1, 1, 1)
+        tooltip:AddDoubleLine(MSB_L.TRAINING_COST, MSB_L.TRAINING_FREE, 1, 0.82, 0, 1, 1, 1)
         return
     end
     local r, g, b = 1, 1, 1
     if (GetMoney and GetMoney() < cost) then r, g, b = 1, 0.2, 0.2 end
-    tooltip:AddDoubleLine("Training cost:", FormatMoney(cost), 1, 0.82, 0, r, g, b)
+    tooltip:AddDoubleLine(MSB_L.TRAINING_COST, FormatMoney(cost), 1, 0.82, 0, r, g, b)
 end

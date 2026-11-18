@@ -7,6 +7,20 @@ if not NEW then NEW = "New" end
 if not SPELLBOOK then SPELLBOOK = "Spellbook" end
 if not PET_PASSIVE then PET_PASSIVE = "Passive" end
 if not GENERAL then GENERAL = "General" end
+if not TRADE_SKILLS then TRADE_SKILLS = "Professions" end
+if not LEVEL_ABBR then LEVEL_ABBR = "Lvl" end
+if not ITEM_MIN_LEVEL then ITEM_MIN_LEVEL = "Requires Level %d" end
+
+-- Text the game already has in the client's language. The addon's own
+-- text is in MSB_L (Localization folder).
+MSB_STR = {
+	NEW = NEW,
+	TALENT = TALENT,
+	GENERAL = GENERAL,
+	PROFESSIONS = TRADE_SKILLS,
+	LEVEL_SHORT = LEVEL_ABBR,				-- "Lvl"
+	REQUIRES_LEVEL = ITEM_MIN_LEVEL,		-- "Requires Level %d"
+}
 
 -- MSB_After(delay, func): C_Timer.After where the client has it, otherwise
 -- an OnUpdate timer. The global C_Timer is left alone so other addons'
@@ -106,10 +120,6 @@ function MSB_GetSpellDescription(slot, bookType)
 	local text = ok and lines > 1 and _G["MSB_ScanTooltipTextLeft" .. lines]:GetText() or nil
 	scanTip:Hide()
 	return text
-end
-
-if not PRODUCT_CHOICE_PAGE_NUMBER then
-	PRODUCT_CHOICE_PAGE_NUMBER = "Page %d / %d"
 end
 
 -- Blanks the "Click to learn" line of talent tooltips: the spellbook only

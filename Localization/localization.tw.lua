@@ -1,0 +1,75 @@
+-- Traditional Chinese (zhTW). Loaded after localization.lua; does nothing on other clients
+-- (3.3.5a loads every file in the TOC, so each translation checks the locale).
+
+if (GetLocale() ~= "zhTW") then return end
+
+local L = MSB_L
+
+-- Settings menu
+L.SHOW_PASSIVES = "顯示被動技能"
+L.REMEMBER_PAGE = "記住頁面"
+L.SPELL_COUNTER = "法術計數"
+L.SHOW_TALENTS = "顯示天賦"
+L.SHOW_UNLEARNED = "顯示未學會的法術"
+L.SHOW_UPCOMING = "顯示即將可學的法術"
+L.CONTINUATION_HEADERS = "續頁顯示分類標題"
+L.LOCK_POSITION = "鎖定位置與縮放"
+L.CLASS_BOOKMARK = "職業顏色書籤"
+L.HIGHLIGHT_UNPLACED = "標示不在快捷列上的法術"
+L.HIGHLIGHTS = "標示"
+L.LEARNED_GLOW = "已學法術發光"
+L.LEARNED_BADGE = "已學法術標記"
+L.AVAILABLE_GLOW = "可學法術發光"
+L.AVAILABLE_BADGE = "可學法術標記"
+L.FONT_SIZE = "字型大小"
+L.TEXT_COLOR = "法術文字顏色"
+L.TEXT_COLOR_LIGHT = "淺色"
+L.TEXT_COLOR_DARK = "深色"
+L.ICON_FRAME = "法術圖示邊框"
+L.ICON_FRAME_SPELLS = "法術"
+L.ICON_FRAME_OTHER = "其他"
+L.ICON_FRAME_UNLEARNED = "未學會"
+L.RESET_POSITION = "重設位置與縮放"
+
+-- Book
+L.TAB_PET = "寵物"
+L.TAB_TRAINING = "訓練"
+L.SEARCH_PLACEHOLDER = "搜尋技能、關鍵字"
+L.NO_RESULTS = "沒有結果。請嘗試其他搜尋字詞。|n例如：'%s, %s'"
+L.NO_PET_SPELLS = "沒有可用的寵物技能。"
+L.PAGE_NUMBER = "第%d頁 / 共%d頁"
+L.TRAINER_HINT_LONG = "拜訪主城的職業訓練師，取得可學法術的完整清單。"
+L.TRAINER_HINT_SHORT = "拜訪職業訓練師，取得完整法術清單。"
+L.UPCOMING_SPELLS = "%d級可學的新法術："
+L.COUNTER_LEARNED = "已學會 %d"
+L.COUNTER_LEARNED_OF = "已學會 %d/%d"
+L.COUNTER_LEARNED_UNKNOWN = "已學會 %d/?"
+L.BADGE_TRAIN = "訓練"
+L.HIDE_RANKS = "隱藏等級"
+L.SHOW_RANKS = "顯示所有等級"
+L.POSITION_LOCKED = "位置與縮放已鎖定"
+L.DRAG_TO_RESIZE = "拖曳以調整大小"
+L.TWO_PAGE_VIEW = "雙頁檢視"
+L.ONE_PAGE_VIEW = "單頁檢視"
+
+-- Spell tooltips
+L.REQUIRES_TALENT = "需要天賦點數。"
+L.VISIT_TRAINER = "拜訪職業訓練師來學習。"
+L.NOT_ON_BARS = "不在你的快捷列上"
+L.TRAINING_COST = "訓練費用："
+L.TRAINING_FREE = "免費"
+L.TOTAL_COST = "總花費：%s"
+L.COST = "花費：%s"
+
+-- Chat messages
+L.DB_RESET = "設定已重設（資料庫版本 %s）。"
+L.TRAINER_CAPTURED = "已從訓練師處取得 %d 個法術。"
+L.SETTINGS_RESET = "設定已恢復為預設值。"
+L.NO_TRAINER_DATA = "沒有可清除的訓練師資料。"
+L.TRAINER_DATA_CLEARED = "訓練師資料已清除。拜訪訓練師即可重新讀取。"
+L.COMBAT_NO_OPEN = "戰鬥中無法用 /msb 開啟法術書。請使用法術書快捷鍵。"
+L.COMBAT_NO_RESET = "戰鬥中無法重設設定。"
+L.COMMANDS = "指令："
+L.CMD_TOGGLE = "開啟或關閉法術書"
+L.CMD_RESET = "將設定恢復為預設值"
+L.CMD_RESCAN = "清除訓練師法術（下次拜訪時重新讀取）"

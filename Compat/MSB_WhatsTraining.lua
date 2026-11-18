@@ -215,7 +215,7 @@ local function BuildCompanionFrame()
                 coinStr = RED_FONT_COLOR_CODE .. coinStr .. FONT_COLOR_CODE_CLOSE
             end
             tip:AddLine(HIGHLIGHT_FONT_COLOR_CODE ..
-                string.format(spell.costFormat or "Total Cost: %s", coinStr) ..
+                string.format(spell.costFormat or MSB_L.TOTAL_COST, coinStr) ..
                 FONT_COLOR_CODE_CLOSE)
             tip:Show()
             return
@@ -237,7 +237,7 @@ local function BuildCompanionFrame()
                 coinStr = RED_FONT_COLOR_CODE .. coinStr .. FONT_COLOR_CODE_CLOSE
             end
             tip:AddLine(HIGHLIGHT_FONT_COLOR_CODE ..
-                string.format(spell.costFormat or "Cost: %s", coinStr) ..
+                string.format(spell.costFormat or MSB_L.COST, coinStr) ..
                 FONT_COLOR_CODE_CLOSE)
         end
         if spell.tooltip and spell.tooltip ~= "" then
@@ -366,7 +366,7 @@ function MSB_SetupWhatsTrainingIntegration(spellBookObj)
 
     local tab = spellBookObj:AddCompatAction({
         name = "WhatsTraining",
-        tabLabel = "Training",
+        tabLabel = MSB_L.TAB_TRAINING,
         tooltip = "What's Training?",
         icon = icon,
         texCoord = texCoord,

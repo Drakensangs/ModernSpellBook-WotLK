@@ -1,0 +1,75 @@
+-- Spanish (esES). Loaded after localization.lua; does nothing on other clients
+-- (3.3.5a loads every file in the TOC, so each translation checks the locale).
+
+if (GetLocale() ~= "esES") then return end
+
+local L = MSB_L
+
+-- Settings menu
+L.SHOW_PASSIVES = "Mostrar pasivos"
+L.REMEMBER_PAGE = "Recordar página"
+L.SPELL_COUNTER = "Contador de hechizos"
+L.SHOW_TALENTS = "Mostrar talentos"
+L.SHOW_UNLEARNED = "Mostrar no aprendidos"
+L.SHOW_UPCOMING = "Mostrar próximos"
+L.CONTINUATION_HEADERS = "Encabezados de continuación"
+L.LOCK_POSITION = "Bloquear posición y escala"
+L.CLASS_BOOKMARK = "Marcapáginas con color de clase"
+L.HIGHLIGHT_UNPLACED = "Resaltar hechizos fuera de las barras de acción"
+L.HIGHLIGHTS = "Resaltados"
+L.LEARNED_GLOW = "Brillo en hechizos aprendidos"
+L.LEARNED_BADGE = "Insignia en hechizos aprendidos"
+L.AVAILABLE_GLOW = "Brillo en hechizos disponibles"
+L.AVAILABLE_BADGE = "Insignia en hechizos disponibles"
+L.FONT_SIZE = "Tamaño de fuente"
+L.TEXT_COLOR = "Color del texto de hechizos"
+L.TEXT_COLOR_LIGHT = "Claro"
+L.TEXT_COLOR_DARK = "Oscuro"
+L.ICON_FRAME = "Marco de iconos de hechizos"
+L.ICON_FRAME_SPELLS = "Hechizos"
+L.ICON_FRAME_OTHER = "Otros"
+L.ICON_FRAME_UNLEARNED = "No aprendidos"
+L.RESET_POSITION = "Restablecer posición y escala"
+
+-- Book
+L.TAB_PET = "Mascota"
+L.TAB_TRAINING = "Entrenamiento"
+L.SEARCH_PLACEHOLDER = "Buscar hechizos, palabras"
+L.NO_RESULTS = "Sin resultados. Prueba con otro término de búsqueda.|nPor ejemplo: '%s, %s'"
+L.NO_PET_SPELLS = "No hay hechizos de mascota disponibles."
+L.PAGE_NUMBER = "Página %d / %d"
+L.TRAINER_HINT_LONG = "Visita a un instructor de clase en una capital para ver la lista COMPLETA de hechizos."
+L.TRAINER_HINT_SHORT = "Visita a un instructor para la lista COMPLETA."
+L.UPCOMING_SPELLS = "Nuevos hechizos a nivel %d:"
+L.COUNTER_LEARNED = "%d aprendidos"
+L.COUNTER_LEARNED_OF = "%d/%d aprendidos"
+L.COUNTER_LEARNED_UNKNOWN = "%d/? aprendidos"
+L.BADGE_TRAIN = "Entrenar"
+L.HIDE_RANKS = "Ocultar rangos"
+L.SHOW_RANKS = "Mostrar todos los rangos"
+L.POSITION_LOCKED = "Posición y escala bloqueadas"
+L.DRAG_TO_RESIZE = "Arrastra para cambiar el tamaño"
+L.TWO_PAGE_VIEW = "Vista de dos páginas"
+L.ONE_PAGE_VIEW = "Vista de una página"
+
+-- Spell tooltips
+L.REQUIRES_TALENT = "Requiere un punto de talento."
+L.VISIT_TRAINER = "Visita a un instructor de clase para aprenderlo."
+L.NOT_ON_BARS = "No está en tus barras de acción"
+L.TRAINING_COST = "Coste de entrenamiento:"
+L.TRAINING_FREE = "Gratis"
+L.TOTAL_COST = "Coste total: %s"
+L.COST = "Coste: %s"
+
+-- Chat messages
+L.DB_RESET = "Ajustes restablecidos (versión de datos %s)."
+L.TRAINER_CAPTURED = "Se han obtenido %d hechizos del instructor."
+L.SETTINGS_RESET = "Ajustes restablecidos a los valores predeterminados."
+L.NO_TRAINER_DATA = "No hay datos de instructores que borrar."
+L.TRAINER_DATA_CLEARED = "Datos de instructores borrados. Visita a un instructor para volver a leerlos."
+L.COMBAT_NO_OPEN = "/msb no puede abrir el libro en combate. Usa tu tecla del libro de hechizos."
+L.COMBAT_NO_RESET = "No se pueden restablecer los ajustes en combate."
+L.COMMANDS = "comandos:"
+L.CMD_TOGGLE = "Abrir o cerrar el libro de hechizos"
+L.CMD_RESET = "Restablecer los ajustes predeterminados"
+L.CMD_RESCAN = "Olvidar los hechizos de instructores (se vuelven a leer en tu próxima visita)"

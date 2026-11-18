@@ -162,8 +162,11 @@ MSB_class "MSB_CRankFlyout"
 		book:HookScript("OnMouseDown", function()
 			flyout:Close()
 		end)
+		-- No fade here: OnUpdate doesn't run in a hidden book, so the fade
+		-- would stay paused and finish on the next opening (the empty panel
+		-- flashed). The panel hides at once with the book.
 		book:HookScript("OnHide", function()
-			flyout:Close()
+			flyout:Close(true)
 		end)
 	end;
 
@@ -204,9 +207,8 @@ MSB_class "MSB_CRankFlyout"
 			return
 		end
 		if (immediate) then
-			self.anim = nil
-			self.frame:SetAlpha(1)
-			self.frame:Hide()
+			-- Also ends a fade already under way (puts the panel back in place)
+			self:FinishClose()
 			return
 		end
 		if (self.anim and self.anim.closing) then return end

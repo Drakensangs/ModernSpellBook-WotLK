@@ -1,0 +1,75 @@
+-- Simplified Chinese (zhCN). Loaded after localization.lua; does nothing on other clients
+-- (3.3.5a loads every file in the TOC, so each translation checks the locale).
+
+if (GetLocale() ~= "zhCN") then return end
+
+local L = MSB_L
+
+-- Settings menu
+L.SHOW_PASSIVES = "显示被动技能"
+L.REMEMBER_PAGE = "记住页面"
+L.SPELL_COUNTER = "法术计数"
+L.SHOW_TALENTS = "显示天赋"
+L.SHOW_UNLEARNED = "显示未学会的法术"
+L.SHOW_UPCOMING = "显示即将可学的法术"
+L.CONTINUATION_HEADERS = "续页显示分类标题"
+L.LOCK_POSITION = "锁定位置和缩放"
+L.CLASS_BOOKMARK = "职业颜色书签"
+L.HIGHLIGHT_UNPLACED = "高亮不在动作条上的法术"
+L.HIGHLIGHTS = "高亮"
+L.LEARNED_GLOW = "已学法术发光"
+L.LEARNED_BADGE = "已学法术标记"
+L.AVAILABLE_GLOW = "可学法术发光"
+L.AVAILABLE_BADGE = "可学法术标记"
+L.FONT_SIZE = "字体大小"
+L.TEXT_COLOR = "法术文字颜色"
+L.TEXT_COLOR_LIGHT = "浅色"
+L.TEXT_COLOR_DARK = "深色"
+L.ICON_FRAME = "法术图标边框"
+L.ICON_FRAME_SPELLS = "法术"
+L.ICON_FRAME_OTHER = "其他"
+L.ICON_FRAME_UNLEARNED = "未学会"
+L.RESET_POSITION = "重置位置和缩放"
+
+-- Book
+L.TAB_PET = "宠物"
+L.TAB_TRAINING = "训练"
+L.SEARCH_PLACEHOLDER = "搜索技能、关键词"
+L.NO_RESULTS = "没有结果。请尝试其他搜索词。|n例如：'%s, %s'"
+L.NO_PET_SPELLS = "没有可用的宠物技能。"
+L.PAGE_NUMBER = "第%d页 / 共%d页"
+L.TRAINER_HINT_LONG = "拜访主城的职业训练师，获取可学法术的完整列表。"
+L.TRAINER_HINT_SHORT = "拜访职业训练师，获取完整法术列表。"
+L.UPCOMING_SPELLS = "%d级可学的新法术："
+L.COUNTER_LEARNED = "已学会 %d"
+L.COUNTER_LEARNED_OF = "已学会 %d/%d"
+L.COUNTER_LEARNED_UNKNOWN = "已学会 %d/?"
+L.BADGE_TRAIN = "训练"
+L.HIDE_RANKS = "隐藏等级"
+L.SHOW_RANKS = "显示所有等级"
+L.POSITION_LOCKED = "位置和缩放已锁定"
+L.DRAG_TO_RESIZE = "拖动以调整大小"
+L.TWO_PAGE_VIEW = "双页视图"
+L.ONE_PAGE_VIEW = "单页视图"
+
+-- Spell tooltips
+L.REQUIRES_TALENT = "需要天赋点数。"
+L.VISIT_TRAINER = "拜访职业训练师来学习。"
+L.NOT_ON_BARS = "不在你的动作条上"
+L.TRAINING_COST = "训练费用："
+L.TRAINING_FREE = "免费"
+L.TOTAL_COST = "总花费：%s"
+L.COST = "花费：%s"
+
+-- Chat messages
+L.DB_RESET = "设置已重置（数据库版本 %s）。"
+L.TRAINER_CAPTURED = "已从训练师处获取 %d 个法术。"
+L.SETTINGS_RESET = "设置已恢复为默认值。"
+L.NO_TRAINER_DATA = "没有可清除的训练师数据。"
+L.TRAINER_DATA_CLEARED = "训练师数据已清除。拜访训练师即可重新读取。"
+L.COMBAT_NO_OPEN = "战斗中无法用 /msb 打开法术书。请使用法术书快捷键。"
+L.COMBAT_NO_RESET = "战斗中无法重置设置。"
+L.COMMANDS = "命令："
+L.CMD_TOGGLE = "打开或关闭法术书"
+L.CMD_RESET = "将设置恢复为默认值"
+L.CMD_RESCAN = "清除训练师法术（下次拜访时重新读取）"

@@ -1,0 +1,75 @@
+-- Russian (ruRU). Loaded after localization.lua; does nothing on other clients
+-- (3.3.5a loads every file in the TOC, so each translation checks the locale).
+
+if (GetLocale() ~= "ruRU") then return end
+
+local L = MSB_L
+
+-- Settings menu
+L.SHOW_PASSIVES = "Показать пассивные"
+L.REMEMBER_PAGE = "Запоминать страницу"
+L.SPELL_COUNTER = "Счётчик заклинаний"
+L.SHOW_TALENTS = "Показать таланты"
+L.SHOW_UNLEARNED = "Показать неизученные"
+L.SHOW_UPCOMING = "Показать будущие"
+L.CONTINUATION_HEADERS = "Заголовки на следующих страницах"
+L.LOCK_POSITION = "Закрепить положение и масштаб"
+L.CLASS_BOOKMARK = "Закладка цвета класса"
+L.HIGHLIGHT_UNPLACED = "Подсвечивать заклинания не на панелях команд"
+L.HIGHLIGHTS = "Подсветка"
+L.LEARNED_GLOW = "Свечение изученных заклинаний"
+L.LEARNED_BADGE = "Значок изученных заклинаний"
+L.AVAILABLE_GLOW = "Свечение доступных заклинаний"
+L.AVAILABLE_BADGE = "Значок доступных заклинаний"
+L.FONT_SIZE = "Размер шрифта"
+L.TEXT_COLOR = "Цвет текста заклинаний"
+L.TEXT_COLOR_LIGHT = "Светлый"
+L.TEXT_COLOR_DARK = "Тёмный"
+L.ICON_FRAME = "Рамка значков заклинаний"
+L.ICON_FRAME_SPELLS = "Заклинания"
+L.ICON_FRAME_OTHER = "Прочее"
+L.ICON_FRAME_UNLEARNED = "Неизученные"
+L.RESET_POSITION = "Сбросить положение и масштаб"
+
+-- Book
+L.TAB_PET = "Питомец"
+L.TAB_TRAINING = "Обучение"
+L.SEARCH_PLACEHOLDER = "Поиск способностей, ключевые слова"
+L.NO_RESULTS = "Нет результатов. Попробуйте другой поисковый запрос.|nНапример, '%s, %s'"
+L.NO_PET_SPELLS = "Нет доступных заклинаний питомца."
+L.PAGE_NUMBER = "Страница %d / %d"
+L.TRAINER_HINT_LONG = "Посетите классового наставника в столице, чтобы получить ПОЛНЫЙ список доступных заклинаний."
+L.TRAINER_HINT_SHORT = "Посетите наставника, чтобы получить ПОЛНЫЙ список заклинаний."
+L.UPCOMING_SPELLS = "Новые заклинания на %d уровне:"
+L.COUNTER_LEARNED = "Изучено: %d"
+L.COUNTER_LEARNED_OF = "Изучено: %d/%d"
+L.COUNTER_LEARNED_UNKNOWN = "Изучено: %d/?"
+L.BADGE_TRAIN = "Изучить"
+L.HIDE_RANKS = "Скрыть ранги"
+L.SHOW_RANKS = "Показать все ранги"
+L.POSITION_LOCKED = "Положение и масштаб закреплены"
+L.DRAG_TO_RESIZE = "Перетащите, чтобы изменить размер"
+L.TWO_PAGE_VIEW = "Две страницы"
+L.ONE_PAGE_VIEW = "Одна страница"
+
+-- Spell tooltips
+L.REQUIRES_TALENT = "Требуется очко таланта."
+L.VISIT_TRAINER = "Посетите классового наставника, чтобы изучить."
+L.NOT_ON_BARS = "Нет на ваших панелях команд"
+L.TRAINING_COST = "Стоимость обучения:"
+L.TRAINING_FREE = "Бесплатно"
+L.TOTAL_COST = "Общая стоимость: %s"
+L.COST = "Стоимость: %s"
+
+-- Chat messages
+L.DB_RESET = "Настройки сброшены (версия БД %s)."
+L.TRAINER_CAPTURED = "Получено заклинаний от наставника: %d."
+L.SETTINGS_RESET = "Настройки сброшены по умолчанию."
+L.NO_TRAINER_DATA = "Нет данных наставников для очистки."
+L.TRAINER_DATA_CLEARED = "Данные наставников очищены. Посетите наставника, чтобы получить их снова."
+L.COMBAT_NO_OPEN = "/msb не может открыть книгу в бою. Используйте клавишу книги заклинаний."
+L.COMBAT_NO_RESET = "Нельзя сбросить настройки в бою."
+L.COMMANDS = "команды:"
+L.CMD_TOGGLE = "Открыть или закрыть книгу заклинаний"
+L.CMD_RESET = "Сбросить настройки по умолчанию"
+L.CMD_RESCAN = "Забыть заклинания наставников (будут прочитаны при следующем визите)"
